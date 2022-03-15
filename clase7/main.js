@@ -69,3 +69,54 @@ app.get('/api/palabras/:num',(req,res)=>{
         }
     }
 })
+/*********************Ejercicio Operaciones con el servidor*************************/
+
+// Desarrollar un servidor que permita realizar la suma entre dos números utilizando tres rutas en estos formatos (Ejemplo con números 5 y 6)
+// a) Ruta get '/api/sumar/5/6
+// b) Ruta get '/api/sumar?num1=5&num2=62) 
+// c) Ruta get '/api/operacion/5+6
+// No hace falta validar los datos a sumar, asumimos que los ingresamos correctamente.
+
+// a)
+app.get('/api/sumar/:num1/:num2',(req, res)=>{
+    const num1 = parseInt(req.params.num1)
+    const num2 = parseInt(req.params.num2)
+
+    const suma = num1 + num2
+
+    res.send({
+        num1:num1,
+        num2:num2,
+        suma:suma
+    })
+})
+// b)
+app.get('/api/sumar',(req, res)=>{
+    const num1 = parseInt(req.query.num1)
+    const num2 = parseInt(req.query.num2)
+    const suma = num1 + num2
+    res.send({
+        num1:num1,
+        num2:num2,
+        suma: suma
+    })
+})
+// c) Ruta get '/api/operacion/5+6
+app.get('/api/operacion/:datos',(req,res)=>{
+    const datos =req.params.datos.split('+')
+    const suma = datos.reduce((a,b)=>{return parseInt(a)+parseInt(b)})
+    res.send({
+        datos:datos,
+        suma: suma
+    })
+})
+// Implementar las rutas post, put y delete en la dirección '/api' respondiendo 'ok' + (post/put/delete) según corresponda. Probar estas rutas con Postman, verificando que el servidor responda con el mensaje correcto.
+app.post('/api',(req,res)=>{
+    res.send({Dato:'ok POST'})
+})
+app.put('/api',(req,res)=>{
+    res.send({Dato:'ok PUT'})
+})
+app.delete('/api',(req,res)=>{
+    res.send({Dato:'ok DELETE'})
+})
