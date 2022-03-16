@@ -11,7 +11,7 @@ const server = app.listen(PORT,()=>{
 })
 server.on('error', error => console.log(`Error en el servidor ${error}`))
 app.use('/api/productos', router)
-const productos=[
+let productos=[
     {
         id:1,
         title:'plasticola',
@@ -38,11 +38,19 @@ app.route('/productos')
     })
     .post((req,res)=>{
         const nuevoProducto = req.body
+        const arrayDeId = productos.map(producto =>producto.id)
         const id = productos.length + 1
+        // la idea es que si por ej se borra el prod con id 2 se le asigne ese id al proximo prod a agragar
+        
+        // for(let i = 1;i < productos.length;i++){
+            
+        //     const idOpcionB = i
+        // }
         productos.push({id,...nuevoProducto})
         res.send({
             nuevoProducto,
-            productos
+            productos,
+            arrayDeId
         })
     }) 
 
@@ -55,3 +63,27 @@ app.route('/productos/:id')
         :
         res.send(producto)
     })
+    // .put((req,res)=>{
+    //     const id = req.params.id
+    //     const producto = productos.find(prod =>prod.id == id)
+    //     !producto ? 
+    //     res.send({ error : 'producto no encontrado' })
+    //     :
+    //     (
+
+    //         res.send(producto)
+    //     )
+    // })
+    .delete((req,res)=>{
+        const id = parseInt(req.params.id)
+        const producto = productos.find(prod =>prod.id == id)
+        productos = productos.filter(prod => prod.id !== id)
+        !producto ? 
+        res.send({ error : 'producto no encontrado' })
+        :
+        res.send({
+            productoBorrado:producto,
+            productos
+        })
+    })
+
