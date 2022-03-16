@@ -1,16 +1,24 @@
-//vi 28 minutoss
+//vi 1h 22 minutoss
 const express = require('express')
-const {Router} = express()
+
+const {Router} = express
 
 const app =express()
 const router = Router()
+
+app.use('/static', express.static(__dirname + '/public'));
+
+app.use(function(req,res,next){
+    console.log('Time: '+ Date.now())
+    next()
+})
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 const PORT =8080
 const server = app.listen(PORT,()=>{
-    console.log(`Escuchando al servidor en el puerto ${server.adress().port}`)
+    console.log(`Escuchando al servidor en el puerto ${server.address().port}`)
 })
 server.on('error', error => console.log(`Error en el servidor ${error}`))
 
@@ -26,17 +34,17 @@ server.on('error', error => console.log(`Error en el servidor ${error}`))
 
 class Mascota{
     constructor(nombre,raza,edad){
-        nombre=this.nombre
-        raza=this.raza
-        edad=this.edad
+        this.nombre=nombre
+        this.raza=raza
+        this.edad=edad
     }
 }
 
 class Persona{
     constructor(nombre,apellido,edad){
-        nombre=this.nombre
-        apellido=this.apellido
-        edad=this.edad
+        this.nombre=nombre
+        this.apellido=apellido
+        this.edad=edad
     }
 }
 
@@ -48,9 +56,33 @@ const persona2 = new Persona('Maria','Gomes',65)
 const mascotas = [mascota1,mascota2]
 const personas = [persona1,persona2]
 
-router.get('/mascotas',(req,res)=>{
+router.get('/mascotas', (req, res) => {
     res.send(mascotas)
 })
-router.get('/mascotas',(req,res)=>{
 
+router.post('/mascotas',(req,res)=>{
+    const mascotaNueva = req.body
+    mascotas.push(mascotaNueva)
+    res.send(
+    //     {
+    //     mascotaNueva,
+    //     mascotas
+    // }
+    'ok post'
+    )
 })
+
+router.get('/personas', (req, res) => {
+    res.send(personas)
+})
+
+router.post('/personas',(req,res)=>{
+    const personaNueva = req.body
+    personas.push(personaNueva)
+    res.send({
+        personaNueva,
+        personas
+    })
+})
+
+app.use('/api', router)
