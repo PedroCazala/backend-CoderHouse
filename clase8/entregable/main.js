@@ -5,6 +5,10 @@ const router = Router
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
+app.get('/',(req,res)=>{
+    res.sendFile(__dirname + '/public/index.html')
+})
+
 const PORT =8080
 const server = app.listen(PORT,()=>{
     console.log(`Escuchando al servidor en el puerto ${server.address().port}`)
@@ -38,7 +42,6 @@ app.route('/productos')
     })
     .post((req,res)=>{
         const nuevoProducto = req.body
-        const arrayDeId = productos.map(producto =>producto.id)
         const id = productos.length + 1
         // la idea es que si por ej se borra el prod con id 2 se le asigne ese id al proximo prod a agragar
         
@@ -49,8 +52,7 @@ app.route('/productos')
         productos.push({id,...nuevoProducto})
         res.send({
             nuevoProducto,
-            productos,
-            arrayDeId
+            productos
         })
     }) 
 
