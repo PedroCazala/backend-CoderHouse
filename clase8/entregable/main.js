@@ -37,14 +37,15 @@ let productos=[
 ]
 
 app.route('/productos')
+    //TRAER TODOS LOS PRODUCTOS
     .get((req,res)=>{
         res.send(productos)
     })
+    //AGREGAR UN NUEVO PRODUCTO
     .post((req,res)=>{
         const nuevoProducto = req.body
         const id = productos.length + 1
         // la idea es que si por ej se borra el prod con id 2 se le asigne ese id al proximo prod a agragar
-        
         // for(let i = 1;i < productos.length;i++){
             
         //     const idOpcionB = i
@@ -56,30 +57,38 @@ app.route('/productos')
         })
     }) 
 
-app.route('/productos/:id')
+app.route('/producto')
+    //BUSCAR PRODUCTO POR ID
     .get((req,res)=>{
-        const id = req.params.id
+        const id = req.query.id
         const producto = productos.find(prod =>prod.id == id)
         !producto ? 
         res.send({ error : 'producto no encontrado' })
         :
         res.send(producto)
-    })
-    // .put((req,res)=>{
-    //     const id = req.params.id
-    //     const producto = productos.find(prod =>prod.id == id)
-    //     !producto ? 
-    //     res.send({ error : 'producto no encontrado' })
-    //     :
-    //     (
 
-    //         res.send(producto)
-    //     )
-    // })
+    })
+    //modificar, ta funciona en postman
+    .put((req,res)=>{
+        const id = req.query.id
+        const productoModificado = req.body
+        const producto = productos.find(prod =>prod.id == id)
+        const indice = productos.indexOf(producto) 
+        productos[indice] = productoModificado
+        console.log('id',id);
+        console.log('indice',indice);
+
+        !producto ? 
+            res.send({ error : 'producto no encontrado' })
+        :
+            res.send({producto,productos})
+    })
+    // Borrar, ya funciona en postman
     .delete((req,res)=>{
-        const id = parseInt(req.params.id)
+        const id = parseInt(req.query.id)
         const producto = productos.find(prod =>prod.id == id)
         productos = productos.filter(prod => prod.id !== id)
+        console.log(productos)
         !producto ? 
         res.send({ error : 'producto no encontrado' })
         :

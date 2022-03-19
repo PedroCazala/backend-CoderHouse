@@ -5,13 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form</title>
+    <link rel="stylesheet" href="./index.css">
 </head>
 <body>
     <h1>Formulario de prubas de la API RESTfull</h1>
-    <h2>Buscar producto por Id</h2>
+    <h2>Traer todos los productos</h2>
     <form action="/productos" method="get">
-        <label for="buscarPorId">Ingrese Id</label>
-        <input type="text" name="buscarPorId"id="buscarPorId">
+        <input type="submit" value="traer todos los productos">
+    </form>
+    <h2>Buscar producto por Id</h2>
+    <form action="/producto" method="get">
+        <label for="id">Ingrese Id</label>
+        <input type="text" name="id"id="id">
         <input type="submit" value="enviar">
     </form>
     <h2>Ingresar nuevo producto</h2>
@@ -25,13 +30,19 @@
         <input type="submit" value="enviar">
     </form>
     <h2>Modificar producto</h2>
-    <form>
+    <form action="/producto" method="put">
         <label for="id">ID:</label>
         <input type="text" name="id"id="id">
+        <label for="title">Nuevo título:</label>
+        <input type="text" name="title"id="title">
+        <label for="price">Nuevo precio:</label>
+        <input type="number" name="price"id="price">
+        <label for="thumbnail">Nueva imagen:</label>
+        <input type="text" name="thumbnail"id="thumbnail">
         <input type="submit" value="enviar">
     </form>
     <h2>Eliminar producto</h2>
-    <form>
+    <form action="/producto" method="delete">
         <label for="id">ID:</label>
         <input type="text" name="id"id="id">
         <input type="submit" value="enviar">

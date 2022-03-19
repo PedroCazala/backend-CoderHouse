@@ -1,4 +1,3 @@
-//vi 1h 22 minutoss
 const express = require('express')
 
 const {Router} = express
