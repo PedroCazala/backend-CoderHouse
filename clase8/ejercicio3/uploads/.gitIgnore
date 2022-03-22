@@ -1,0 +1,4 @@
+*
+!.gitignore
+
+#Se acomodó ESTE git ignore que ignore a todos los archivos de la carpeta uploads, menos al mismo archivo para que la misma se suba
