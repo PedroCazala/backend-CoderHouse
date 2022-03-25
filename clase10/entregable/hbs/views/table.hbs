@@ -1,0 +1,22 @@
+<button type="button" class="btn btn-outline-dark"><a href="/">Ir al formulario</a></button>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Imagen</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each productos}}
+            <tr>
+            <th scope="row">{{this.id}}</th>
+            <td>{{this.title}}</td>
+            <td>${{this.price}}</td>
+            <td><img src="{{this.img}}" class="card-img-top" alt="{{this.title}}" style="max-width:100px;"></td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
