@@ -1,0 +1,9 @@
+/* form{
+    margin: 10px;
+    color:gray;
+    display: flex;
+    flex-flow: column wrap;
+} */
+body{
+    background-color: black;
+}
