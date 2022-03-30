@@ -22,10 +22,11 @@ app.get('/',(req,res)=>{
     res.render('index',{products})
 })
 
+
 app.use(express.static(__dirname + '/public'));
 
 const fileProducts = './productos.txt'
-let products;
+let products = [];
 const getProducts = ()=>{
     try{
         products = fs.readFileSync(fileProducts,'utf-8')
@@ -36,15 +37,35 @@ const getProducts = ()=>{
 }
 getProducts()
 
-const update = ()=>{
-    products = JSON.stringify(products)
-    fs.writeFileSync(fileProducts,products)
+const updateProducts = ()=>{
+    const adsProducts = JSON.stringify(products)
+    fs.writeFileSync(fileProducts,adsProducts)
 
 }
 
 
 
 console.log(products);
+
+const fileMessages = './messages.txt'
+let messages = [];
+const getMessages = ()=>{
+    try{
+        messages = fs.readFileSync(fileMessages,'utf-8')
+        messages = JSON.parse(messages)
+    }catch{
+        fs.writeFileSync(fileMessages,'[]')
+    }
+}
+getMessages()
+
+const updateMessages = ()=>{
+    const adsMessages = JSON.stringify(messages)
+    fs.writeFileSync(fileMessages,adsMessages)
+
+}
+
+console.log('messages '+ messages);
 
 
 io.on("connection", function (socket) {
@@ -53,7 +74,15 @@ io.on("connection", function (socket) {
         const id = products.length + 1
         products.push({id,...newProducto})
         console.log(products);
-        update()
+        updateProducts()
         io.sockets.emit("products", products);
     });
+    socket.on('newMessage',(newMessage)=>{
+        // console.log(newMessage);
+        const id = messages.length + 1
+        messages.push({id,...newMessage})
+        console.log(messages);
+        updateMessages()
+        io.sockets.emit("messages", messages);
+    })
 })
