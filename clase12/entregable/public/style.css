@@ -30,11 +30,16 @@ td{
 }
 .mail{
     color:blue;
+    font-weight: bold;
 }
 .date{
-    color: red;
+    color: brown;
 
 }
 .message{
     color: green;
+    font-style: italic;
+}
+#messagesTable{
+    background-color: antiquewhite;
 }

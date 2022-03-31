@@ -90,7 +90,7 @@ function  renderMessages (messages) {
         `
         document.getElementById("messagesContainer").innerHTML = 
         `
-            <table class="table table-dark">
+            <table class="table">
                 <tbody id="messagesTable">
                 </tbody>
             </table>

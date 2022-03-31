@@ -1,1 +1,1 @@
-[{"id":1,"title":"algo","price":"20","img":""}]
+[{"id":1,"title":"algo","price":"20","img":""},{"id":2,"title":"plasticola","price":"55","img":"https://www.libreriamaya.com.ar/img/productos/5984/5910a279b321a.jpg"}]
