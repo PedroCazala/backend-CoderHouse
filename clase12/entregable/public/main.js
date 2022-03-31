@@ -13,23 +13,26 @@ function addProduct(e) {
     socket.emit('newProduct', product);
     return false;
 }
+
 function addMessage(e) {
-    const message = {
+    //si uso moment se actualiza la pagina, por que puede ser?
+    let now = new Date()
+    const newMessage = {
         username: document.getElementById('username').value,
-        texto: document.getElementById('texto').value,
-        date: moment().format('DD-MM-YYYY HH:mm:ss'),
-        laal:'lala'
+        text: document.getElementById('texto').value,
+        date:now
     };
-    console.log(message)
+    // alert(`'añadir mensaje' ${newMessage.username} enviado a la hora ${newMessage.laal}0 ${newMessage.date} }`)
+    // console.log(newMessage)
     document.getElementById('username').value = ''
     document.getElementById('texto').value = ''
     
-    socket.emit('newMessage', message);
+    socket.emit('newMessage', newMessage);
     return false;
 }
 
 
-function render(products) {
+function renderProducts(products) {
     if(products[0]){
         const crearTabla =
                     `
@@ -46,7 +49,7 @@ function render(products) {
                         </tbody>
                     </table>
                     `
-        document.getElementById("table").innerHTML = crearTabla;
+        document.getElementById("productsContainer").innerHTML = crearTabla;
         const html = products
             .map((product, index) => {
                 return `
@@ -63,24 +66,39 @@ function render(products) {
     }
 
 }
-socket.on("products", function (products) {
-    render(products);
-});
 
-function render(messages) {
-    if(messages[0]){
-        
-        const html = messages
-            .map((message, index) => {
-                return `
-                    <div>${message.username}</div>
-                `;
-            })
-            .join(" ");
-        document.getElementById("messageContainer").innerHTML = html;
+function  renderMessages (messages) {
+    const tableMessage = document.getElementById("messagesTable")
+    while(!tableMessage){
+        alert('entro al if')
+        const  crearTabla =
+        `
+            <table class="table table-dark">
+                <tbody id="messagesTable">
+                </tbody>
+            </table>
+        `
+        document.getElementById("messageContainer").innerHTML = crearTabla;
+        tableMessage = document.getElementById("messagesTable")
     }
-
+    const html =messages
+    .map((message, index) => {
+        return `
+                <tr>
+                    <th scope="row"> ${message.id} </th>
+                    <td> ${message.username} </td>
+                    <td> ${message.text} </td>
+                </tr>
+            `;
+    })
+    .join(" ");
+    tableMessage.innerHTML = html;
+    
 }
-socket.on("messages", function (messages) {
-    render(messages);
+socket.on("products", function (products) {
+    renderProducts(products);
+});
+socket.on("chat", function (messages) {
+// console.log('mensaje recibido');
+renderMessages(messages);
 });

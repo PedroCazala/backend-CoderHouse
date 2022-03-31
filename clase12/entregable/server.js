@@ -19,7 +19,7 @@ app.set('view engine','ejs')
 app.set('views','./views')
 
 app.get('/',(req,res)=>{
-    res.render('index',{products})
+    res.render('index',{products, messages})
 })
 
 
@@ -60,9 +60,8 @@ const getMessages = ()=>{
 getMessages()
 
 const updateMessages = ()=>{
-    const adsMessages = JSON.stringify(messages)
-    fs.writeFileSync(fileMessages,adsMessages)
-
+    const addsMessages = JSON.stringify(messages)
+    fs.writeFileSync(fileMessages,addsMessages)
 }
 
 console.log('messages '+ messages);
@@ -70,10 +69,10 @@ console.log('messages '+ messages);
 
 io.on("connection", function (socket) {
     console.log("Un cliente se ha conectado");
+
     socket.on("newProduct", (newProducto) => {
         const id = products.length + 1
         products.push({id,...newProducto})
-        console.log(products);
         updateProducts()
         io.sockets.emit("products", products);
     });
@@ -81,8 +80,8 @@ io.on("connection", function (socket) {
         // console.log(newMessage);
         const id = messages.length + 1
         messages.push({id,...newMessage})
-        console.log(messages);
+        // console.log(messages);
         updateMessages()
-        io.sockets.emit("messages", messages);
+        io.sockets.emit("chat", messages);
     })
 })

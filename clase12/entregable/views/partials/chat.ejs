@@ -4,4 +4,23 @@
     <input type="submit" value="Enviar" />
 </form>
 
-<div id="messages"></div>
+<div id="messageContainer">
+    <% if (messages[0]){%>
+        <div class="">
+
+        </div>
+        <table class="table table-dark">
+            <tbody id="messagesTable">
+                <% for(const message of messages){ %> 
+                    <tr>
+                    <th scope="row"><%= message.id %></th>
+                    <td><%= message.username %></td>
+                    <td><%= message.text %></td>
+                    </tr>
+                <% } %> 
+            </tbody>
+        </table>
+    <% } else{ %> 
+        <div>No hay mensajes disponibles</div>
+    <% } %> 
+</div>
