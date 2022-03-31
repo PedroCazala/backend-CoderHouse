@@ -18,13 +18,13 @@ function addMessage(e) {
     //si uso moment se actualiza la pagina, por que puede ser?
     let now = new Date()
     const newMessage = {
-        username: document.getElementById('username').value,
+        mail: document.getElementById('mail').value,
         text: document.getElementById('texto').value,
         date:now
     };
-    // alert(`'añadir mensaje' ${newMessage.username} enviado a la hora ${newMessage.laal}0 ${newMessage.date} }`)
+    // alert(`'añadir mensaje' ${newMessage.mail} enviado a la hora ${newMessage.laal}0 ${newMessage.date} }`)
     // console.log(newMessage)
-    document.getElementById('username').value = ''
+    document.getElementById('mail').value = ''
     document.getElementById('texto').value = ''
     
     socket.emit('newMessage', newMessage);
@@ -68,31 +68,46 @@ function renderProducts(products) {
 }
 
 function  renderMessages (messages) {
-    const tableMessage = document.getElementById("messagesTable")
-    while(!tableMessage){
-        alert('entro al if')
-        const  crearTabla =
+    // const tableMessage = document.getElementById("messagesTable")
+    // while(!tableMessage){
+    //     alert('entro al if')
+    //     const  crearTabla =
+    //     `
+    //         <table class="table table-dark">
+    //             <tbody id="messagesTable">
+    //             </tbody>
+    //         </table>
+    //     `
+    //     document.getElementById("messageContainer").innerHTML = crearTabla;
+    //     tableMessage = document.getElementById("messagesTable")
+    // }
+    const  crearTabla =
         `
             <table class="table table-dark">
                 <tbody id="messagesTable">
                 </tbody>
             </table>
         `
-        document.getElementById("messageContainer").innerHTML = crearTabla;
-        tableMessage = document.getElementById("messagesTable")
-    }
+        document.getElementById("messagesContainer").innerHTML = 
+        `
+            <table class="table table-dark">
+                <tbody id="messagesTable">
+                </tbody>
+            </table>
+        `;
     const html =messages
     .map((message, index) => {
         return `
                 <tr>
                     <th scope="row"> ${message.id} </th>
-                    <td> ${message.username} </td>
-                    <td> ${message.text} </td>
+                    <td class="mail"> ${message.mail} </td>
+                    <td class="date"> ${message.date} </td>
+                    <td class="message"> ${message.text} </td>
                 </tr>
             `;
     })
     .join(" ");
-    tableMessage.innerHTML = html;
+    document.getElementById("messagesTable").innerHTML = html;
     
 }
 socket.on("products", function (products) {

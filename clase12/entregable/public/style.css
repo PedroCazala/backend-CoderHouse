@@ -25,3 +25,16 @@ form > input{
     margin: auto;
 
 }
+td{
+    background-color: antiquewhite;
+}
+.mail{
+    color:blue;
+}
+.date{
+    color: red;
+
+}
+.message{
+    color: green;
+}
