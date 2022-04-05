@@ -1,0 +1,1 @@
+export const mensaje2 = 'Este es el segundo mensaje'

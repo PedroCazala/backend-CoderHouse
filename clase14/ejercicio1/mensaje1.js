@@ -1,0 +1,1 @@
+export const mensaje1 = 'Este es el primer mensaje'
