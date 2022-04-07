@@ -1,5 +1,6 @@
 import express from 'express'
-import fs  from 'fs'
+import { newId } from './src/funciones.js'
+import { products, getProducts, updateProducts } from './src/updateFiles.js'
 
 export const app = express()
 const PORT = 8080
@@ -8,6 +9,7 @@ const PORT = 8080
 const {Router} = express
 const router = Router()
 
+getProducts()
 
 //Servidor en marcha
 const server = app.listen(PORT,()=>{
@@ -21,33 +23,9 @@ app.use(express.urlencoded({extended:true}))
 app.use('/api', router)
 
 //Productos
-let products=[]
-const fileProducts = './productos.txt'
-const getProducts = ()=>{
-    try{
-        // Intento de hacerlo asincrono!
-        // fs.readFile(fileProducts, 'utf-8', async (err, data) => {
-        //     if(err) {
-        //         console.log('error: ', err);
-        //     } else {
-        //         products= JSON.parse(data)
-        //     }
-        //     console.log(products);
-        // });
-        let archivo = fs.readFileSync(fileProducts, 'utf-8');
-        products = JSON.parse(archivo)
-    }catch{
-        fs.writeFileSync(fileProducts,'[]')
-        console.log('entro al catch y borro')
-    }
-}
-getProducts()
+// export let products=[]
+// export const fileProducts = './productos.txt'
 
-const updateProducts = ()=>{
-    const adsProducts = JSON.stringify(products)
-    fs.writeFileSync(fileProducts,adsProducts)
-
-}
 
 //devolver todos los productos, si tiene id el prod epecifico
 router.get('/productos/:id?',(req,res)=>{
@@ -64,19 +42,36 @@ router.get('/productos/:id?',(req,res)=>{
 })
 
 router.post('/productos',(req,res)=>{
-    const id = products.length + 1
+    const id = newId(products)
+    // products.length + 1
+    const date = Date.now() 
     const newProduct =req.body
-    console.log(req.body);
-    products.push({id,...newProduct})
+    products.push({id,date,...newProduct})
     updateProducts()
     res.send({newProduct,products})
 })
 router.put('/productos/:id',(req,res)=>{
     const id = req.params.id
-    const modifiProduct =req.body
-    console.log(req.body);
-    products.push({id,...newProduct})
+    const date = Date.now() 
+    const modifiedProduct = {id,date,...req.body}
+    let index = products.map(products=>parseInt(products.id)).indexOf(parseInt(id))
+
+    products[index] = modifiedProduct
     updateProducts()
-    res.send({newProduct,products})
+    res.send({index, products})
+})
+router.delete('/productos/:id',(req,res)=>{
+    const id = req.params.id
+    let index = products.map(products=>parseInt(products.id)).indexOf(parseInt(id))
+
+    products.splice(index,1)
+    updateProducts()
+    res.send({index, products})
 })
 
+
+
+app.get('*',(req,res)=>{
+    const ruta =req.url
+    res.send({error:2, ruta,mensaje:`La ruta ${ruta}, no fué encontrada`})
+})
