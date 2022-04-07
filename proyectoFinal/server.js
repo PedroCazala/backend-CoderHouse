@@ -22,12 +22,21 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 //Productos
-const products=[]
+let products=[]
 const fileProducts = './productos.txt'
 const getProducts = ()=>{
     try{
-        products = fs.readFileSync(fileProducts,'utf-8')
-        products = JSON.parse(products)
+        // Intento de hacerlo asincrono!
+        // fs.readFile(fileProducts, 'utf-8', async (err, data) => {
+        //     if(err) {
+        //         console.log('error: ', err);
+        //     } else {
+        //         products= JSON.parse(data)
+        //     }
+        //     console.log(products);
+        // });
+        let archivo = fs.readFileSync(fileProducts, 'utf-8');
+        products = JSON.parse(archivo)
     }catch{
         fs.writeFileSync(fileProducts,'[]')
         console.log('entro al catch y borro')
