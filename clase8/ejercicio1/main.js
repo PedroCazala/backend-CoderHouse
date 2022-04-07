@@ -15,7 +15,7 @@ app.use(function(req,res,next){
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-const PORT =8080
+const PORT =8090
 const server = app.listen(PORT,()=>{
     console.log(`Escuchando al servidor en el puerto ${server.address().port}`)
 })
@@ -23,7 +23,7 @@ server.on('error', error => console.log(`Error en el servidor ${error}`))
 
 //Ejercicio1
 // - Crear un servidor que permita manejar una lista de mascotas y personas. Debe poseer dos rutas principales: '/mascotas' y '/personas', las cuales deben incluir métodos para listar y para agregar recursos:
-// 	GET: devolverá la lista requerida en formato objeto.
+// GET: devolverá la lista requerida en formato objeto.
 // POST: permitirá guardar una persona ó mascota en arrays propios en memoria, con el siguiente formato: 
 // Persona -> { "nombre": ..., "apellido": ..., "edad":... }
 // Mascota -> { "nombre":..., "raza":..., "edad":... }
@@ -61,6 +61,7 @@ router.get('/mascotas', (req, res) => {
 
 router.post('/mascotas',(req,res)=>{
     const mascotaNueva = req.body
+    console.log(req.body);
     mascotas.push(mascotaNueva)
     res.send(
     //     {

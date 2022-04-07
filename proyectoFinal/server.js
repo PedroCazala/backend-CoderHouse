@@ -1,15 +1,13 @@
 import express from 'express'
 import fs  from 'fs'
 
-
-
 export const app = express()
 const PORT = 8080
 
 //Ruteo
 const {Router} = express
 const router = Router()
-app.use('/api', router)
+
 
 //Servidor en marcha
 const server = app.listen(PORT,()=>{
@@ -20,6 +18,7 @@ server.on('error', error  => console.log(`Error en el servidor ${error}`))
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+app.use('/api', router)
 
 //Productos
 let products=[]
@@ -53,16 +52,31 @@ const updateProducts = ()=>{
 //devolver todos los productos, si tiene id el prod epecifico
 router.get('/productos/:id?',(req,res)=>{
     const id = req.params.id
-    id ? 
-    res.send(id)
-    :
-    res.send(`todos los productos`)
+    if(id){
+        let finded =products.find(prod=> prod.id == id)
+        finded ?
+            res.send(finded)
+        :
+            res.send(`El producto con el id número: ${id}, no existe`)
+    } else {
+        res.send(`${JSON.stringify(products)}`)
+    }
 })
+
 router.post('/productos',(req,res)=>{
     const id = products.length + 1
     const newProduct =req.body
-    products.push({...newProduct,id})
+    console.log(req.body);
+    products.push({id,...newProduct})
     updateProducts()
-    res.send(products)
+    res.send({newProduct,products})
+})
+router.put('/productos/:id',(req,res)=>{
+    const id = req.params.id
+    const modifiProduct =req.body
+    console.log(req.body);
+    products.push({id,...newProduct})
+    updateProducts()
+    res.send({newProduct,products})
 })
 
