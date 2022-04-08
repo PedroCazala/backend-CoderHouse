@@ -2,6 +2,11 @@ import express from 'express'
 import { newId } from './src/funciones.js'
 import { products, getProducts, updateProducts } from './src/updateFiles.js'
 
+//intento de pasar las rutas a otro archivo
+// import {router2} from './src/ruter/routes.js'
+// const routes = require('./src/ruter/routes.js')
+// console.log(typeof(routes));
+
 export const app = express()
 const PORT = 8080
 const admin =true
@@ -12,9 +17,13 @@ const adminPermission =(req,res,next)=>{
         res.send('Se necesitan permisos de administrador')
 }
 
+//intento de pasar las rutas a otro archivo
+// app.use('/', routes);
+// app.use('/api', lala)
+
 //Ruteo
 const {Router} = express
-const router = Router()
+export const router = Router()
 
 getProducts()
 
@@ -52,7 +61,6 @@ router.get('/productos/:id?',(req,res)=>{
 
 router.post('/productos', adminPermission,(req,res)=>{
         const id = newId(products)
-        // products.length + 1
         const date = Date.now() 
         const newProduct =req.body
         products.push({id,date,...newProduct})
