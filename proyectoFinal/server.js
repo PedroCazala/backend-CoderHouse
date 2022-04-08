@@ -4,6 +4,13 @@ import { products, getProducts, updateProducts } from './src/updateFiles.js'
 
 export const app = express()
 const PORT = 8080
+const admin =true
+const adminPermission =(req,res,next)=>{
+    admin ?
+        next()
+    :
+        res.send('Se necesitan permisos de administrador')
+}
 
 //Ruteo
 const {Router} = express
@@ -41,32 +48,40 @@ router.get('/productos/:id?',(req,res)=>{
     }
 })
 
-router.post('/productos',(req,res)=>{
-    const id = newId(products)
-    // products.length + 1
-    const date = Date.now() 
-    const newProduct =req.body
-    products.push({id,date,...newProduct})
-    updateProducts()
-    res.send({newProduct,products})
+
+
+router.post('/productos', adminPermission,(req,res)=>{
+        const id = newId(products)
+        // products.length + 1
+        const date = Date.now() 
+        const newProduct =req.body
+        products.push({id,date,...newProduct})
+        updateProducts()
+        res.send({newProduct,products})
 })
-router.put('/productos/:id',(req,res)=>{
+router.put('/productos/:id',adminPermission,(req,res)=>{
     const id = req.params.id
     const date = Date.now() 
     const modifiedProduct = {id,date,...req.body}
     let index = products.map(products=>parseInt(products.id)).indexOf(parseInt(id))
-
-    products[index] = modifiedProduct
-    updateProducts()
-    res.send({index, products})
+    if(index!=-1){
+        products[index] = modifiedProduct
+        updateProducts()
+        res.send({index, products})
+    }else{
+        res.send({mensaje:`No se puede modificar producto con id: ${id}, porque no existe`})
+    }
 })
-router.delete('/productos/:id',(req,res)=>{
+router.delete('/productos/:id',adminPermission,(req,res)=>{
     const id = req.params.id
     let index = products.map(products=>parseInt(products.id)).indexOf(parseInt(id))
-
-    products.splice(index,1)
-    updateProducts()
-    res.send({index, products})
+    if(index!=-1){
+        products.splice(index,1)
+        updateProducts()
+        res.send({index, products})
+    }else{
+        res.send({mensaje:`No se puede borrar producto con id: ${id}, porque no existe`})
+    }
 })
 
 
