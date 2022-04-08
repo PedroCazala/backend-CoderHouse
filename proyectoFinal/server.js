@@ -1,6 +1,6 @@
 import express from 'express'
 import { newId } from './src/funciones.js'
-import { products, getProducts, updateProducts } from './src/updateFiles.js'
+import { products, getProducts, updateProducts, carts, updateCarts, getCarts } from './src/updateFiles.js'
 
 //intento de pasar las rutas a otro archivo
 // import {router2} from './src/ruter/routes.js'
@@ -26,6 +26,7 @@ const {Router} = express
 export const router = Router()
 
 getProducts()
+getCarts()
 
 //Servidor en marcha
 const server = app.listen(PORT,()=>{
@@ -98,3 +99,50 @@ app.get('*',(req,res)=>{
     const ruta =req.url
     res.send({error:2, ruta,mensaje:`La ruta ${ruta}, no fué encontrada`})
 })
+
+//Carrito------------------------------------------------------------------------------------
+//Crear carrito
+router.post('/carrito',(req,res)=>{
+    const id = newId(carts)
+    const date = Date.now() 
+    const cart = {id,date,products:[]}
+    carts.push(cart)
+    updateCarts()
+    res.send({id,cart})
+})
+//Eliminar carrito
+router.delete('/carrito/:id',(req,res)=>{
+    const id = req.params.id
+    let index = carts.map(cart=>parseInt(cart.id)).indexOf(parseInt(id))
+    if(index!=-1){
+        carts.splice(index,1)
+        updateCarts()
+        res.send({index, carts})
+    }else{
+        res.send({mensaje:`No se puede borrar carrito con id: ${id}, porque no existe`})
+    }
+})
+//Obtener productos de un carrito
+router.get('/carrito/:id/productos',(req,res)=>{
+    const id = req.params.id
+    let cart =carts.find(cart=> cart.id == id)
+
+    cart ?
+        res.send(cart.products)
+    :
+        res.send(`El carrito con el id número: ${id}, no existe`)
+})
+//Agregar producto al carrito en proceso
+// router.post('/carrito/:id/productos',(req,res)=>{
+//     const id = req.params.id
+//     let cart =carts.find(cart=> cart.id == id)
+//     const idProduct = req.body.id
+//     let product = products.map(products=>parseInt(products.id))
+
+//     cart.products.push(product)
+
+//     cart ?
+//         res.send(cart.products)
+//     :
+//         res.send(`El carrito con el id número: ${id}, no existe`)
+// })

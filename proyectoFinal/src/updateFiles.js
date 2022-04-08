@@ -1,7 +1,7 @@
 import fs  from 'fs'
 
 export let products =[]
-const fileProducts = '../productos.txt'
+const fileProducts = './productos.txt'
 
 export const getProducts = ()=>{
     try{
@@ -27,3 +27,22 @@ export const updateProducts = ()=>{
     fs.writeFileSync(fileProducts,adsProducts)
 }
 getProducts()
+//Carts---------------------------------------------------------
+export let carts =[]
+const fileCarts = './carritos.txt'
+
+export const getCarts = ()=>{
+    try{
+        let archivo = fs.readFileSync(fileCarts, 'utf-8');
+        carts = JSON.parse(archivo)
+    }catch{
+        fs.writeFileSync(fileCarts,'[]')
+        console.log('entro al catch y borro CARRITO')
+    }
+}
+
+export const updateCarts = ()=>{
+    const adsCarts = JSON.stringify(carts)
+    fs.writeFileSync(fileCarts,adsCarts)
+}
+getCarts()
