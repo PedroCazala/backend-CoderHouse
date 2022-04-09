@@ -3,7 +3,7 @@ import { newId } from './src/funciones.js'
 import { products, getProducts, updateProducts, carts, updateCarts, getCarts } from './src/updateFiles.js'
 
 //intento de pasar las rutas a otro archivo
-// import {router2} from './src/ruter/routes.js'
+// import {router} from './src/ruter/routes.js'
 // const routes = require('./src/ruter/routes.js')
 // console.log(typeof(routes));
 
@@ -127,22 +127,57 @@ router.get('/carrito/:id/productos',(req,res)=>{
     const id = req.params.id
     let cart =carts.find(cart=> cart.id == id)
 
-    cart ?
-        res.send(cart.products)
-    :
+    if(cart){
+        res.send(cart)
+    }else{
         res.send(`El carrito con el id número: ${id}, no existe`)
+    }
 })
 //Agregar producto al carrito en proceso
-// router.post('/carrito/:id/productos',(req,res)=>{
-//     const id = req.params.id
-//     let cart =carts.find(cart=> cart.id == id)
-//     const idProduct = req.body.id
-//     let product = products.map(products=>parseInt(products.id))
+    //el id del producto se manda por un json
+router.post('/carrito/:id/productos',(req,res)=>{
+    const id = req.params.id
+    let cart =carts.find(cart=> cart.id == id)
+    const idProduct = req.body.id
+    let product = products.find(product=>product.id == idProduct)
 
-//     cart.products.push(product)
+    cart?.products.push(product)
 
-//     cart ?
-//         res.send(cart.products)
-//     :
-//         res.send(`El carrito con el id número: ${id}, no existe`)
-// })
+    if(cart && product){
+        res.send(cart)
+        updateCarts()
+    }else{
+        if(cart){
+            res.send(`El producto con el id número: ${idProduct}, no existe`)
+        }else{
+            res.send({
+                error1:`El carrito con el id número: ${id}, no existe`,
+                error2:`Por lo tanto el producto con el id número: ${idProduct}, tampoco existe`
+            })
+        }
+    }
+})
+//eliminar un producto de un carrito determinado
+router.delete('/carrito/:id/productos',(req,res)=>{
+    const id = req.params.id
+    let cart =carts.find(cart=> cart.id == id)
+    const idProduct = req.body.id
+    let index = cart.products.map(product=>product.id).indexOf(idProduct)
+    let product = products.find(product=>product.id == idProduct)
+    console.log(index);
+    cart.products.splice(index,1)
+
+    if(cart && product){
+        res.send({'producto eliminado':product,cart})
+        updateCarts()
+    }else{
+        if(cart){
+            res.send(`El producto con el id número: ${idProduct}, no existe`)
+        }else{
+            res.send({
+                error1:`El carrito con el id número: ${id}, no existe`,
+                error2:`Por lo tanto el producto con el id número: ${idProduct}, tampoco existe`
+            })
+        }
+    }
+})
