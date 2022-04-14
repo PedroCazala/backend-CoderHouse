@@ -13,7 +13,8 @@ const knex = require('knex')(options);
     } catch (err) {
         console.log('entro al catch');
         console.log(err);
-    } finally {
+    } finally {()=>{
         knex.destroy();
+    }
     }
 })();
