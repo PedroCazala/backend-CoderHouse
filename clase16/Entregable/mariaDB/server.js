@@ -1,7 +1,9 @@
 const express = require('express')
 const { Server: HttpServer } = require("http");
 const { Server: IOServer } = require("socket.io");
-const fs =require('fs')
+
+const { options } = require("./options/mariaDB.js")
+const  knex  = require('knex')(options)
 
 
 const app = express();
@@ -25,46 +27,67 @@ app.get('/',(req,res)=>{
 
 app.use(express.static(__dirname + '/public'));
 
-const fileProducts = './productos.txt'
 let products = [];
-const getProducts = ()=>{
+const getProducts = async ()=>{
     try{
-        products = fs.readFileSync(fileProducts,'utf-8')
-        products = JSON.parse(products)
+        products = 
+        await knex
+            .from('products')
+            .select('id', 'title', 'price','img')
     }catch{
-        fs.writeFileSync(fileProducts,'[]')
+        await knex.schema.createTable('products', (table) => {
+            table.increments('id')
+            table.string('title')
+            table.float('price')
+            table.string('img')
+            })
+        console.log('la tabla "products" no existia, asi que se creó');
     }
 }
 getProducts()
 
-const updateProducts = ()=>{
-    const adsProducts = JSON.stringify(products)
-    fs.writeFileSync(fileProducts,adsProducts)
+const updateProducts = async()=>{
+    try{
+        await knex('products').del();
+        await knex('products').insert(products)
 
+        console.log('Se actualizó la tabla "products" ');
+    }catch(err){
+        console.log('entro al catch"products" ');
+        console.log(err);
+    }
 }
 
-
-
-console.log(products);
-
-const fileMessages = './messages.txt'
 let messages = [];
-const getMessages = ()=>{
+const getMessages = async ()=>{
     try{
-        messages = fs.readFileSync(fileMessages,'utf-8')
-        messages = JSON.parse(messages)
+        messages = 
+        await knex
+            .from('messages')
+            .select('id', 'mail', 'text','date')
     }catch{
-        fs.writeFileSync(fileMessages,'[]')
+        await knex.schema.createTable('messages', (table) => {
+            table.increments('id')
+            table.string('mail')
+            table.string('text')
+            table.string('date')
+            })
+        console.log('la tabla "messages" no existia, asi que se creó');
     }
 }
 getMessages()
 
-const updateMessages = ()=>{
-    const addsMessages = JSON.stringify(messages)
-    fs.writeFileSync(fileMessages,addsMessages)
-}
+const updateMessages = async()=>{
+    try{
+        await knex('messages').del();
+        await knex('messages').insert(messages)
 
-console.log('messages '+ messages);
+        console.log('Se actualizó la tabla "messages" ');
+    }catch(err){
+        console.log('entro al catch "messages" ');
+        console.log(err);
+    }
+}
 
 
 io.on("connection", function (socket) {
