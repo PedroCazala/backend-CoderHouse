@@ -1,0 +1,12 @@
+db.articulos.insertMany([{nombre:"papa", precio:43, stock:5}, {nombre:"pan", precio:65, stock:10}, {nombre:"queso", precio:3, stock:50}, {nombre:"caramelo", precio:28, stock:64}])
+ 
+mensajes:
+mail
+text
+date
+productos:
+title
+price
+img
+
+db.messages.estimatedDocumentCount()

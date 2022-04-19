@@ -2,8 +2,8 @@ const express = require('express')
 const { Server: HttpServer } = require("http");
 const { Server: IOServer } = require("socket.io");
 
-const { options } = require("./options/mariaDB.js")
-const  knex  = require('knex')(options)
+const { options } = require('./options/SQLite3.js');
+const knex = require('knex')(options);
 
 
 const app = express();
