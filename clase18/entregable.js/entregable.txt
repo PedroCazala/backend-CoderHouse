@@ -1,0 +1,75 @@
+show databases
+admin    0.000GB
+config   0.000GB
+empresa  0.000GB
+local    0.000GB
+mibase   0.000GB
+sistema  0.000GB
+
+>----Crear una base de datos llamada ecommerce que contenga dos colecciones: mensajes y productos
+use ecommerce
+switched to db ecommerce
+
+>----Agregar 10 documentos con valores distintos a las colecciones mensajes
+db.messages.insert([{mail:"carlos@gmail.com", text:"Hola soy carlos", date:"10Hs"}, {mail:"jose@gmail.com", text:"Hola soy jose", date:"10Hs"}, {mail:"luis@gmail.com", text:"Hola soy luis", date:"10Hs"}, {mail:"emilia@gmail.com", text:"Hola soy emilia", date:"10Hs"}, {mail:"valen@gmail.com", text:"Hola soy valen", date:"10Hs"}, {mail:"juan@gmail.com", text:"Hola soy juan", date:"10Hs"}, {mail:"marcos@gmail.com", text:"Hola soy marcos", date:"10Hs"}, {mail:"pao@gmail.com", text:"Hola soy pao", date:"10Hs"}, {mail:"raul@gmail.com", text:"Hola soy raul", date:"10Hs"}, {mail:"pepe@gmail.com", text:"Hola soy pepe", date:"10Hs"}, {mail:"dante@gmail.com", text:"Hola soy dante", date:"10Hs"}])
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 11,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+show collections
+messages
+
+>----Agregar 10 documentos con valores distintos a las colecciones productos.
+---(En el caso de los productos, poner valores al campo precio entre los 100 y 5000 pesos(eligiendo valores intermedios, ej: 120, 580, 900, 1280, 1700, 2300, 2860, 3350, 4320, 4990).)
+db.products.insert([{title:"cartuchera", price:500, img:"/cartuchera.jpg"}, {title:"sacapuntas", price:600, img:"/sacapuntas.jpg"}, {title:"lapiz", price:1000, img:"/lapiz.jpg"}, {title:"goma", price:3800, img:"/goma.jpg"}, {title:"regla", price:4990, img:"/regla.jpg"}, {title:"pegamento", price:1065, img:"/pegamento.jpg"}, {title:"cinta", price:2360, img:"/cinta.jpg"}, {title:"compaz", price:1660, img:"/compaz.jpg"}, {title:"cuaderno", price:3170, img:"/cuaderno.jpg"}, {title:"cuadernillo", price:4180, img:"/cuadernillo.jpg"}])
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 10,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+show collections
+messages
+products
+
+>----Listar todos los documentos en cada colección.
+db.products.find()
+{ "_id" : ObjectId("625f051b715147512c5a6d90"), "title" : "cartuchera", "price" : 500, "img" : "/cartuchera.jpg" }
+{ "_id" : ObjectId("625f051b715147512c5a6d91"), "title" : "sacapuntas", "price" : 600, "img" : "/sacapuntas.jpg" }
+{ "_id" : ObjectId("625f051b715147512c5a6d92"), "title" : "lapiz", "price" : 1000, "img" : "/lapiz.jpg" }
+{ "_id" : ObjectId("625f051b715147512c5a6d93"), "title" : "goma", "price" : 3800, "img" : "/goma.jpg" }
+{ "_id" : ObjectId("625f051b715147512c5a6d94"), "title" : "regla", "price" : 4990, "img" : "/regla.jpg" }
+{ "_id" : ObjectId("625f051b715147512c5a6d95"), "title" : "pegamento", "price" : 1065, "img" : "/pegamento.jpg" }
+{ "_id" : ObjectId("625f051b715147512c5a6d96"), "title" : "cinta", "price" : 2360, "img" : "/cinta.jpg" }
+{ "_id" : ObjectId("625f051b715147512c5a6d97"), "title" : "compaz", "price" : 1660, "img" : "/compaz.jpg" }
+{ "_id" : ObjectId("625f051b715147512c5a6d98"), "title" : "cuaderno", "price" : 3170, "img" : "/cuaderno.jpg" }
+{ "_id" : ObjectId("625f051b715147512c5a6d99"), "title" : "cuadernillo", "price" : 4180, "img" : "/cuadernillo.jpg" }
+db.messages.find()
+{ "_id" : ObjectId("625efee0c1941820e391230a"), "mail" : "carlos@gmail.com", "text" : "Hola soy carlos", "date" : "10Hs" }
+{ "_id" : ObjectId("625efee0c1941820e391230b"), "mail" : "jose@gmail.com", "text" : "Hola soy jose", "date" : "10Hs" }
+{ "_id" : ObjectId("625efee0c1941820e391230c"), "mail" : "luis@gmail.com", "text" : "Hola soy luis", "date" : "10Hs" }
+{ "_id" : ObjectId("625efee0c1941820e391230d"), "mail" : "emilia@gmail.com", "text" : "Hola soy emilia", "date" : "10Hs" }
+{ "_id" : ObjectId("625efee0c1941820e391230e"), "mail" : "valen@gmail.com", "text" : "Hola soy valen", "date" : "10Hs" }
+{ "_id" : ObjectId("625efee0c1941820e391230f"), "mail" : "juan@gmail.com", "text" : "Hola soy juan", "date" : "10Hs" }
+{ "_id" : ObjectId("625efee0c1941820e3912310"), "mail" : "marcos@gmail.com", "text" : "Hola soy marcos", "date" : "10Hs" }
+{ "_id" : ObjectId("625efee0c1941820e3912311"), "mail" : "pao@gmail.com", "text" : "Hola soy pao", "date" : "10Hs" }
+{ "_id" : ObjectId("625efee0c1941820e3912312"), "mail" : "raul@gmail.com", "text" : "Hola soy raul", "date" : "10Hs" }
+{ "_id" : ObjectId("625efee0c1941820e3912313"), "mail" : "pepe@gmail.com", "text" : "Hola soy pepe", "date" : "10Hs" }
+{ "_id" : ObjectId("625efee0c1941820e3912314"), "mail" : "dante@gmail.com", "text" : "Hola soy dante", "date" : "10Hs" }
+
+>----Mostrar la cantidad de documentos almacenados en cada una de ellas.
+db.products.estimatedDocumentCount()
+10
+db.messages.estimatedDocumentCount()
+11
+
