@@ -9,4 +9,8 @@ title
 price
 img
 
-db.messages.estimatedDocumentCount()
+db.products.find({price:{{$gt: 1000},{$lt: 3000}})
+db.products.updateMany({price:{$gt: 3000}},{$set:{stock:0}})
+db.products.deleteMany( {price: {$lt: 1000}} )
+
+db.createUser({user: "pepe",pwd: "asd456",roles: [   { role: "read", db: "ecommerce" }]})
