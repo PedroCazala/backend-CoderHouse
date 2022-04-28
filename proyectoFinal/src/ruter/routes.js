@@ -5,10 +5,10 @@ const {Router} = express
 const router2 = Router()
 
 router2.get('/lala',(req,res)=>{
-    res.send(`ENTRO A ROUTER`)
+    res.send(`ENTRO A ROUTER, vos decis?`)
 })
-
-module.exports = router2;
+export {router2}
+// module.exports = router2;
 // app.use('/api', router)
 
 // app.get('*',(req,res)=>{

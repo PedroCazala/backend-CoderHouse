@@ -3,10 +3,9 @@ import { newId } from './src/funciones.js'
 import { products, getProducts, updateProducts, carts, updateCarts, getCarts } from './src/updateFiles.js'
 
 //intento de pasar las rutas a otro archivo
-// import {router} from './src/ruter/routes.js'
+// import {router2} from './src/ruter/routes.js'
 // const routes = require('./src/ruter/routes.js')
 // console.log(typeof(routes));
-
 export const app = express()
 const PORT = 8080
 const admin =true
@@ -24,7 +23,7 @@ const adminPermission =(req,res,next)=>{
 //Ruteo
 const {Router} = express
 export const router = Router()
-
+// router2
 getProducts()
 getCarts()
 
@@ -181,3 +180,5 @@ router.delete('/carrito/:id/productos',(req,res)=>{
         }
     }
 })
+
+

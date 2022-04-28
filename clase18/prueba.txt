@@ -14,3 +14,4 @@ db.products.updateMany({price:{$gt: 3000}},{$set:{stock:0}})
 db.products.deleteMany( {price: {$lt: 1000}} )
 
 db.createUser({user: "pepe",pwd: "asd456",roles: [   { role: "read", db: "ecommerce" }]})
+mongod --auth --dbpath "E:\Users\AlePedro\Documents\Proyectos\miBaseMongo"
