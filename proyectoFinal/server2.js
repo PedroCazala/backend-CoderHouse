@@ -1,4 +1,6 @@
 import express from 'express'
+import ProductsDaoMongoDB from './src/container/daos/productos/ProductsDaoMongoDB.js'
+import { adminPermission } from './src/middlewares.js'
 import { cartRouter } from './src/ruter/cartRoutes.js'
 import { productsRouter } from './src/ruter/productsRoutes.js'
 import { products, getProducts, updateProducts, carts, updateCarts, getCarts } from './src/updateFiles.js'
@@ -23,8 +25,15 @@ server.on('error', error  => console.log(`Error en el servidor ${error}`))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use('/api', router)
-app.use('/api/productos',productsRouter)
-app.use('/api/carrito',cartRouter)
+
+//With mongo
+router.get('/productos/:id?',(req,res)=>{
+    const id = req.params.id
+    ProductsDaoMongoDB.getProducts(id,res)
+})
+router.post('/', adminPermission,(req,res)=>{
+    ProductsDaoMongoDB.pushProduct(req,res)
+})
 
 app.get('*',(req,res)=>{
     const ruta =req.url
