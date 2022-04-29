@@ -31,7 +31,7 @@ router.get('/productos/:id?',(req,res)=>{
     const id = req.params.id
     ProductsDaoMongoDB.getProducts(id,res)
 })
-router.post('/', adminPermission,(req,res)=>{
+router.post('/productos', adminPermission,(req,res)=>{
     ProductsDaoMongoDB.pushProduct(req,res)
 })
 
