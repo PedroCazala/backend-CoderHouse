@@ -5,8 +5,13 @@ class ProductsDaoMongoDB extends MongoDbContainer{
     static async getProducts(idReq,res){
         await connectMongoDB()
         if(idReq){
-            let finded = await Product.findOne({_id:idReq})
-            finded._id==idReq ?
+            let finded;
+            try {
+                finded = await Product.findOne({_id:idReq})
+            } catch (error) {
+                console.log(error.message);
+            } 
+            finded ?
                 res.send(finded)
             :
                 res.send(`El producto con el id número: ${idReq}, no existe`)
@@ -25,6 +30,40 @@ class ProductsDaoMongoDB extends MongoDbContainer{
             res.send({newProduct})
         } catch (error) {
             console.log('entro al catch');
+            console.log(error.message);
+        }
+    }
+
+    static async updateProduct(req,res){
+        try {
+            connectMongoDB()
+            const id = req.params.id
+            const date = Date.now() 
+            try{
+                const modifiedProduct = {id,date,...req.body}
+                await Product.updateOne({_id:id},modifiedProduct)
+                res.send(modifiedProduct)
+            }catch(err){
+                res.send(`No existe ningún porducto con el id: ${id}`)
+            }
+
+        } catch (error) {
+            console.log('entro al catch "updateProduct"');
+            console.log(error.message);
+        }
+    }
+    static async delateProduct(req,res){
+        try {
+            connectMongoDB()
+            const id = req.params.id 
+            try{
+                const deleteProduct = await Product.deleteOne({_id:id})
+                res.send(deleteProduct)
+            }catch{
+                res.send(`No existe ningún porducto con el id: ${id}`)
+            }
+        } catch (error) {
+            console.log('entro al catch "deleteProduct"');
             console.log(error.message);
         }
     }
