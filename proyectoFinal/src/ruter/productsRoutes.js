@@ -2,23 +2,25 @@ import express from 'express'
 import { adminPermission } from '../middlewares.js'
 import { products } from '../updateFiles.js'
 import { newId } from '../funciones.js'
+//Mongo
 import ProductsDaoMongoDB from '../container/daos/productos/ProductsDaoMongoDB.js'
+const Products = ProductsDaoMongoDB
 
 const {Router} = express
 const productsRouter = Router()
 //MONGO
 productsRouter.get('/:id?',(req,res)=>{
     const id = req.params.id 
-    ProductsDaoMongoDB.getProducts(id,res)
+    Products.getProducts(id,res)
 })
 productsRouter.post('/', adminPermission,(req,res)=>{
-    ProductsDaoMongoDB.pushProduct(req,res)
+    Products.pushProduct(req,res)
 })
 productsRouter.put('/:id',adminPermission,(req,res)=>{
-    ProductsDaoMongoDB.updateProduct(req,res)
+    Products.updateProduct(req,res)
 })
 productsRouter.delete('/:id',adminPermission,(req,res)=>{
-    ProductsDaoMongoDB.delateProduct(req,res)
+    Products.delateProduct(req,res)
 })
 //FILESYSTEM
 // //devolver todos los productos, si tiene id el prod epecifico
