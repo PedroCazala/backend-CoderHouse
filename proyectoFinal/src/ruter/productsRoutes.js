@@ -10,8 +10,7 @@ const {Router} = express
 const productsRouter = Router()
 //MONGO
 productsRouter.get('/:id?',(req,res)=>{
-    const id = req.params.id 
-    Products.getProducts(id,res)
+    Products.getProducts(req,res)
 })
 productsRouter.post('/', adminPermission,(req,res)=>{
     Products.pushProduct(req,res)

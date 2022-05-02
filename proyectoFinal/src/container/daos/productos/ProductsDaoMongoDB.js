@@ -2,19 +2,20 @@ import {MongoDbContainer, connectMongoDB } from '../../MongoDbContainer.js'
 import { Product } from './models/products.js'
 class ProductsDaoMongoDB extends MongoDbContainer{
     //Si id existe, el producto con dicho id se mostrará, sino se mostraran todos
-    static async getProducts(idReq,res){
+    static async getProducts(req,res){
         await connectMongoDB()
-        if(idReq){
+        const id = req.params.id 
+        if(id){
             let finded;
             try {
-                finded = await Product.findOne({_id:idReq})
+                finded = await Product.findOne({_id:id})
             } catch (error) {
                 console.log(error.message);
             } 
             finded ?
                 res.send(finded)
             :
-                res.send(`El producto con el id número: ${idReq}, no existe`)
+                res.send(`El producto con el id número: ${id}, no existe`)
         } else {
             const allProducts  = await Product.find()
             res.send(`${allProducts}`) ||res.send(`No hay productos cargados`) 

@@ -1,16 +1,6 @@
 import mongoose  from 'mongoose'
-// export let products =[]
 
 export class MongoDbContainer{
-    // static  getProducts(){   
-    //     try{
-    //         await connectMongoDB()
-    //         // let archivo = fs.readFileSync(fileProducts, 'utf-8');
-    //         // products = JSON.parse(archivo)
-    //     }catch{
-
-    //     }
-    // }
 }
 export async function connectMongoDB(){
     //conectar a la base de datos
