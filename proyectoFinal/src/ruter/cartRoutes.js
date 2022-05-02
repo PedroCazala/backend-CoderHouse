@@ -2,30 +2,43 @@ import express from 'express'
 import { products,carts} from '../updateFiles.js'
 import { newId } from '../funciones.js'
 
+//Mongo
+import CartsDaoMongoDB from '../container/daos/carritos/CartsDaoMongoDB.js'
+const Carts = CartsDaoMongoDB
+
 const {Router} = express
 const cartRouter = Router()
 
-//Crear carrito
 cartRouter.post('/',(req,res)=>{
-    const id = newId(carts)
-    const date = Date.now() 
-    const cart = {id,date,products:[]}
-    carts.push(cart)
-    updateCarts()
-    res.send({id,cart})
+    Carts.create(req,res)
 })
-//Eliminar carrito
 cartRouter.delete('/:id',(req,res)=>{
-    const id = req.params.id
-    let index = carts.map(cart=>parseInt(cart.id)).indexOf(parseInt(id))
-    if(index!=-1){
-        carts.splice(index,1)
-        updateCarts()
-        res.send({index, carts})
-    }else{
-        res.send({mensaje:`No se puede borrar carrito con id: ${id}, porque no existe`})
-    }
+    Carts.deleteOne(req,res)
 })
+
+// //Crear carrito
+// cartRouter.post('/',(req,res)=>{
+//     const id = newId(carts)
+//     const date = Date.now() 
+//     const cart = {id,date,products:[]}
+//     carts.push(cart)
+//     updateCarts()
+//     res.send({id,cart})
+// })
+
+// //Eliminar carrito
+// cartRouter.delete('/:id',(req,res)=>{
+//     const id = req.params.id
+//     let index = carts.map(cart=>parseInt(cart.id)).indexOf(parseInt(id))
+//     if(index!=-1){
+//         carts.splice(index,1)
+//         updateCarts()
+//         res.send({index, carts})
+//     }else{
+//         res.send({mensaje:`No se puede borrar carrito con id: ${id}, porque no existe`})
+//     }
+// })
+
 //Obtener productos de un carrito
 
 cartRouter.get('/:id/productos',(req,res)=>{
