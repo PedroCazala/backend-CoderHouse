@@ -7,8 +7,6 @@ class ProductsDaoMemory extends MemoryContainer{
         const id = req.params.id 
         if(id){
             let finded = Products.find(prod=>prod.id == id)
-            console.log(Products[id].id);
-            console.log(finded);
             finded ?
                 res.send(finded)
             :
@@ -28,7 +26,8 @@ class ProductsDaoMemory extends MemoryContainer{
             const id = newId(Products)
             const date = Date.now() 
             const newProduct =req.body
-            const addProduct=Products.push({id,date,...newProduct})
+            const addProduct={id,date,...newProduct}
+            Products.push(addProduct)
             res.send({addProduct})
         } catch (error) {
             console.log('entro al catch pushProduct Memory');
@@ -36,38 +35,39 @@ class ProductsDaoMemory extends MemoryContainer{
         }
     }
 
-    // static async updateProduct(req,res){
-    //     try {
-    //         connectMongoDB()
-    //         const id = req.params.id
-    //         const date = Date.now() 
-    //         try{
-    //             const modifiedProduct = {id,date,...req.body}
-    //             await Product.updateOne({_id:id},modifiedProduct)
-    //             res.send(modifiedProduct)
-    //         }catch(err){
-    //             res.send(`No existe ningún porducto con el id: ${id}`)
-    //         }
+    static  updateProduct(req,res){
+        try {
+            const id = parseInt(req.params.id)
+            const date = Date.now() 
+            const oldProduct = Products.find(prod=>prod.id ==id)
+            const newProduct = {id,date,...req.body}
+            const index = Products.indexOf(oldProduct)
+            console.log(`INDEX: ${index}`);
+            Products[index]=newProduct
+            oldProduct?
+                res.send(`oldProduct:${JSON.stringify(oldProduct)}, update:${JSON.stringify(newProduct)}`)
+            :
+                res.send(`No existe ningún porducto con el id: ${id}`)
 
-    //     } catch (error) {
-    //         console.log('entro al catch "updateProduct"');
-    //         console.log(error.message);
-    //     }
-    // }
-    // static async delateProduct(req,res){
-    //     try {
-    //         connectMongoDB()
-    //         const id = req.params.id 
-    //         try{
-    //             const deleteProduct = await Product.deleteOne({_id:id})
-    //             res.send(deleteProduct)
-    //         }catch{
-    //             res.send(`No existe ningún porducto con el id: ${id}`)
-    //         }
-    //     } catch (error) {
-    //         console.log('entro al catch "deleteProduct"');
-    //         console.log(error.message);
-    //     }
-    // }
+        } catch (error) {
+            console.log('entro al catch "updateProduct"');
+            console.log(error.message);
+        }
+    }
+    static async delateProduct(req,res){
+        try {
+            const id = req.params.id 
+            const product = Products.find(prod=>prod.id ==id)
+            const index=Products.indexOf(product)
+            Products.splice(index,1)
+            product ?
+                res.send(`Se borró el siguente producto: ${JSON.stringify(product)}`)
+            :
+                res.send(`No existe ningún porducto con el id: ${id}`)
+        } catch (error) {
+            console.log('entro al catch "deleteProduct"');
+            console.log(error.message);
+        }
+    }
 }
 export default ProductsDaoMemory

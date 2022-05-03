@@ -18,12 +18,12 @@ productsRouter.get('/:id?',(req,res)=>{
 productsRouter.post('/', adminPermission,(req,res)=>{
     Products.pushProduct(req,res)
 })
-// productsRouter.put('/:id',adminPermission,(req,res)=>{
-//     Products.updateProduct(req,res)
-// })
-// productsRouter.delete('/:id',adminPermission,(req,res)=>{
-//     Products.delateProduct(req,res)
-// })
+productsRouter.put('/:id',adminPermission,(req,res)=>{
+    Products.updateProduct(req,res)
+})
+productsRouter.delete('/:id',adminPermission,(req,res)=>{
+    Products.delateProduct(req,res)
+})
 
 //FILESYSTEM
 // //devolver todos los productos, si tiene id el prod epecifico
