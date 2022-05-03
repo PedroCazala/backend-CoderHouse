@@ -10,3 +10,4 @@ export function connectFirebase(){
     });
     console.log('Base de datos Firebase conectada');
 }
+export {admin}

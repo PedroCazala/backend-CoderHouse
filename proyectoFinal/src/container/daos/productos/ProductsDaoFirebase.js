@@ -1,14 +1,23 @@
-import { FirebaseContainer } from '../../FirebaseContainer.js';
+import { admin, connectFirebase, FirebaseContainer } from '../../FirebaseContainer.js';
 // import { Product } from './models/products.js'
+const db =  admin.firestore()
+const query =db.collection('products')
 class ProductsDaoFirebase extends FirebaseContainer{
     //Si id existe, el producto con dicho id se mostrará, sino se mostraran todos
     static async getProducts(req,res){
         const id = req.params.id 
-        await connectFirebase()
+        connectFirebase()
+
         if(id){
             let finded;
             try {
-                finded = await Product.findOne({_id:id})
+                // query.get()
+                // .then((snapshot)=>{
+                //     snapshot.forEach((doc)=>{
+                //         console.log()
+                //     })
+                // })
+
             } catch (error) {
                 console.log(error.message);
             } 
