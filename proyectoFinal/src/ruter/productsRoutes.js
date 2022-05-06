@@ -1,17 +1,19 @@
 import express from 'express'
 import { adminPermission } from '../middlewares.js'
-import { products } from '../updateFiles.js'
-import { newId } from '../funciones.js'
+
 // //Mongo
 // import ProductsDaoMongoDB from '../container/daos/productos/ProductsDaoMongoDB.js'
 // const Products = ProductsDaoMongoDB
-//Memory
-import ProductsDaoMemory from '../container/daos/productos/ProductsDaoMemory.js'
-const Products = ProductsDaoMemory
+// //Memory
+// import ProductsDaoMemory from '../container/daos/productos/ProductsDaoMemory.js'
+// const Products = ProductsDaoMemory
+//FileSystem
+import ProductsDaoFileSystem from '../container/daos/productos/ProductsDaoFileSystem.js'
+const Products = ProductsDaoFileSystem
 
 const {Router} = express
 const productsRouter = Router()
-//MONGO
+
 productsRouter.get('/:id?',(req,res)=>{
     Products.getProducts(req,res)
 })
