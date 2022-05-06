@@ -1,7 +1,6 @@
 import express from 'express'
 import { cartRouter } from './src/ruter/cartRoutes.js'
 import { productsRouter } from './src/ruter/productsRoutes.js'
-import { products, getProducts, updateProducts, carts, updateCarts, getCarts } from './src/updateFiles.js'
 
 export const app = express()
 const PORT = 8080
@@ -9,9 +8,6 @@ const PORT = 8080
 //Ruteo
 const {Router} = express
 export const router = Router()
-
-getProducts()
-getCarts()
 
 //Servidor en marcha
 const server = app.listen(PORT,()=>{

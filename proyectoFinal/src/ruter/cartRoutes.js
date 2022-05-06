@@ -1,6 +1,4 @@
 import express from 'express'
-import { products,carts} from '../updateFiles.js'
-import { newId } from '../funciones.js'
 
 // //Mongo
 // import CartsDaoMongoDB from '../container/daos/carritos/CartsDaoMongoDB.js'
@@ -8,6 +6,9 @@ import { newId } from '../funciones.js'
 //Memory
 import CartsDaoMemory from '../container/daos/carritos/CartsDaoMemory.js' 
 const Carts = CartsDaoMemory
+// // FyleSystem
+// import CartsDaoFileSystem from '../container/daos/carritos/CartsDaoFileSystem.js'
+// const Carts = CartsDaoFileSystem
 
 const {Router} = express
 const cartRouter = Router()

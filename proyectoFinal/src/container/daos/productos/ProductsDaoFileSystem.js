@@ -1,6 +1,5 @@
 import { newId } from "../../../funciones.js";
-import fs from 'fs'
-import { FileSystemContainer, Products, fileProducts } from "../../FileSystemContainer.js";
+import { FileSystemContainer, Products } from "../../FileSystemContainer.js";
 class ProductsDaoFileSystem extends FileSystemContainer{
     //Si id existe, el producto con dicho id se mostrará, sino se mostraran todos
     static async getProducts(req,res){

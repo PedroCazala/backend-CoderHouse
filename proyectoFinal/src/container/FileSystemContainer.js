@@ -2,7 +2,7 @@ import fs  from 'fs'
 let Products =[]
 const fileProducts = 'productos.txt'
 let Carts =[]
-const fileCarts = '../../carritos.txt'
+const fileCarts = 'carritos.txt'
 class FileSystemContainer{
     // PRODUCTOS - Traer
     static getProductsFile = ()=>{
@@ -20,7 +20,7 @@ class FileSystemContainer{
         fs.writeFileSync(fileProducts,adsProducts)
     }
     //CARRITOS - Traer
-    getCarts = ()=>{
+    static getCartsFile = ()=>{
         try{
             let archivo = fs.readFileSync(fileCarts, 'utf-8');
             Carts = JSON.parse(archivo)
@@ -30,7 +30,7 @@ class FileSystemContainer{
         }
     }
     //CARRITOS - Actualizar
-    updateCarts = ()=>{
+    static updateCartsFile = ()=>{
         const adsCarts = JSON.stringify(Carts)
         fs.writeFileSync(fileCarts,adsCarts)
     }
