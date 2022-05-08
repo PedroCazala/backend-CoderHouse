@@ -1,22 +1,21 @@
 {
-  "name": "desafio1",
+  "name": "servermock",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
+  "type":"module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server1": "nodemon --inspect src/server.js",
-    "server2 ": "nodemon --inspect ./src/server1.js"
+    "start": "nodemon --inspect ./src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.18.1"
-  },
   "devDependencies": {
     "@faker-js/faker": "^6.3.1",
-    "eslint": "^8.14.0"
+    "eslint": "^8.15.0"
+  },
+  "dependencies": {
+    "express": "^4.18.1"
   }
 }
