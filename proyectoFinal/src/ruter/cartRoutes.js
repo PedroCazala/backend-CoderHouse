@@ -3,13 +3,15 @@ import express from 'express'
 // //Mongo
 // import CartsDaoMongoDB from '../container/daos/carritos/CartsDaoMongoDB.js'
 // const Carts = CartsDaoMongoDB
-//Memory
-import CartsDaoMemory from '../container/daos/carritos/CartsDaoMemory.js' 
-const Carts = CartsDaoMemory
+// //Memory
+// import CartsDaoMemory from '../container/daos/carritos/CartsDaoMemory.js' 
+// const Carts = CartsDaoMemory
 // // FyleSystem
 // import CartsDaoFileSystem from '../container/daos/carritos/CartsDaoFileSystem.js'
 // const Carts = CartsDaoFileSystem
-
+// Firebase
+import CartsDaoFirebase from '../container/daos/carritos/CartsDaoFirebase.js'
+const Carts = CartsDaoFirebase
 const {Router} = express
 const cartRouter = Router()
 

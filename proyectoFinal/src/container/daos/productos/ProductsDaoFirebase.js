@@ -1,8 +1,5 @@
 import { FirebaseContainer } from '../../FirebaseContainer.js';
 import {productsRef} from '../firebaseConfing/confing.js'
-
-
-// const productsCollection = collection(db,'products')
  
 class ProductsDaoFirebase extends FirebaseContainer{
     //Si id existe, el producto con dicho id se mostrará, sino se mostraran todos
