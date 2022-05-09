@@ -11,7 +11,7 @@ export const router = Router()
 
 //Servidor en marcha
 const server = app.listen(PORT,()=>{
-    console.log(`Escuchando el puerto ${server.address().port}`);
+    console.log(`🔥Escuchando el puerto ${server.address().port}`);
 })
 server.on('error', error  => console.log(`Error en el servidor ${error}`))
 

@@ -1,92 +1,85 @@
 import { FirebaseContainer } from '../../FirebaseContainer.js';
-import { db } from '../firebaseConfing/confing.js';
-import {collection, getDocs} from 'firebase/firestore/lite';
-import { doc, setDoc,getDoc } from "firebase/firestore";
+import {productsRef} from '../firebaseConfing/confing.js'
 
 
-const productsCollection = collection(db,'products')
+// const productsCollection = collection(db,'products')
  
 class ProductsDaoFirebase extends FirebaseContainer{
     //Si id existe, el producto con dicho id se mostrará, sino se mostraran todos
     static async getProducts(req,res){
-        const id = req.params.id 
+        const id = req.params.id
 
         if(id){
-            let finded;
-            try {
-                const cityRef = db.collection('cities').doc('SF');
-                const doc = await cityRef.get();
-                if (!doc.exists) {
-                    console.log('No such document!');
-                } else {
-                    console.log('Document data:', doc.data());
-                }
-                // const docRef = doc(db, "products", id);
-                // finded = await getDoc(docRef);
-            } catch (error) {
-                console.log(error.message);
-            } 
-            finded ?
-                res.send(finded)
-            :
-                res.send(`El producto con el id número: ${id}, no existe`)
+            const product = productsRef.doc(id);
+            const doc = await product.get();
+            if (!doc.exists) {
+                res.send(`El documento con el id: ${id} no existe!`);
+            } else {
+                res.send(JSON.stringify(doc.data()));
+            }
         } else {
-            const allProductsSnapshot = await getDocs(productsCollection)
-            const allProducts = allProductsSnapshot.docs.map(doc => doc.data());
-            res.send(`${JSON.stringify(allProducts)}`) ||res.send(`No hay productos cargados`) 
+            const snapshot = await productsRef.get();
+            const products = []
+            snapshot.forEach(doc => {
+                products.push({id:doc.id, data:doc.data()});
+            });
+            if (!snapshot) {
+                res.send(`No hay productos cargados en la colección products!`);
+            } else {
+                res.send(JSON.stringify(products));
+            }
         }
     }
     static async pushProduct(req,res){
+        const date = Date.now() 
+        const newProduct =req.body
         try {
-            const date = Date.now() 
-            const newProduct =req.body
-            const data = ([{date,...newProduct}])
-            // const res = await productsCollection.set(data);
-            // const res=await setDoc(doc(db, "products"), data);
-            await setDoc(doc(productsCollection), {
-                name: "Los Angeles",
-                state: "CA",
-                country: "USA"
-              });
-            // res.send({res})
+            const data = ({date,...newProduct})
+            const doc = productsRef.doc()
+            const resp = await doc.set(data);
+        
+            res.send(`Producto agregado con exito ${JSON.stringify(resp)}`)
         } catch (error) {
             console.log('entro al catch');
             console.log(error.message);
         }
     }
 
-    // static async updateProduct(req,res){
-    //     try {
-    //         connectMongoDB()
-    //         const id = req.params.id
-    //         const date = Date.now() 
-    //         try{
-    //             const modifiedProduct = {id,date,...req.body}
-    //             await Product.updateOne({_id:id},modifiedProduct)
-    //             res.send(modifiedProduct)
-    //         }catch(err){
-    //             res.send(`No existe ningún porducto con el id: ${id}`)
-    //         }
+    static async updateProduct(req,res){
+        try {
+            const id = req.params.id
+            const date = Date.now() 
+            const modifiedProduct =req.body
+            const data = ({date,...modifiedProduct})
+            const doc = productsRef.doc(id)
 
-    //     } catch (error) {
-    //         console.log('entro al catch "updateProduct"');
-    //         console.log(error.message);
-    //     }
-    // }
-    // static async delateProduct(req,res){
-    //     try {
-    //         connectMongoDB()
-    //         const id = req.params.id 
-    //         try{
-    //             const deleteProduct = await Product.deleteOne({_id:id})
-    //             res.send(deleteProduct)
-    //         }catch{
-    //             res.send(`No existe ningún porducto con el id: ${id}`)
-    //         }
-    //     } catch (error) {
-    //         console.log('entro al catch "deleteProduct"');
-    //         console.log(error.message);
-    //     }
-    // }
+            try{
+                const resp = await doc.update(data);
+                res.send(`Producto con id: ${id}, modificado con exito ${JSON.stringify(resp)}`)
+            }catch{
+                res.send(`No existe ningún porducto con el id: ${id}`)
+            }
+
+        } catch (error) {
+            console.log('entro al catch "updateProduct"');
+            console.log(error.message);
+        }
+    }
+    static async delateProduct(req,res){
+        try {
+            const id = req.params.id 
+            
+            const oldProduct = await productsRef.doc(id).get()
+            const deleteProduct = await productsRef.doc(id).delete()
+            if(oldProduct.exists){
+                res.send({oldProduct, deleteProduct})
+            }else{
+                res.send(`No existe ningún porducto con el id: ${id}`)
+            }
+        } catch (error) {
+            console.log('entro al catch "deleteProduct"');
+            console.log(error.message);
+        }
+    }
 }
 export default ProductsDaoFirebase
