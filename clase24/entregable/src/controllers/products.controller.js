@@ -40,7 +40,7 @@ export default class productController{
     }
     async logout(req,res){
       try {
-        let userName = req.session.nameUser
+        const userName = req.session.nameUser
         req.session.destroy()
         res.render('logout',{userName})
       } catch (error) {

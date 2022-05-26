@@ -30,7 +30,7 @@ app.use(express.urlencoded({extended:true}))
 
 const MongoStore = connectMongo.create({
     mongoUrl:`mongodb+srv://pedro:${claveMongo}@cluster0.tugf9.mongodb.net/session` || 'mongodb://localhost:27017/sesiones', //Servidor mongo local
-    ttl:60
+    ttl: 10
 })
 
 app.use(cookieParser())
