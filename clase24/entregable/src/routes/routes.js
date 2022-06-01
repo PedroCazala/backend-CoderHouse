@@ -16,7 +16,7 @@ export class Routes extends express.Router{
         //cuando abro sin logueo
         this.get('/',this.productController.index)
         //eliminar la session
-        this.get('/logout',this.productController.logout)
+        this.get('/logout',this.productController.redirectLogin)
         //faker que genera productos
         this.get("/api/productos-test/:cant?", this.productController.createProducts);
     }

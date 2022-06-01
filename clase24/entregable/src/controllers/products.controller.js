@@ -47,6 +47,9 @@ export default class productController{
         console.log(error.message); 
       }
     }
+    async redirectLogin(req,res){
+      setTimeout(()=>res.redirect('/login'),5000)
+    }
     async createProducts(req,res){
         const {cant} = req.query
         try {
