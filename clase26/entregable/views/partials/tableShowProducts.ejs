@@ -1,0 +1,26 @@
+<div id="productsContainer">
+    <% if (products[0]){%>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Titulo</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Imagen</th>
+                </tr>
+            </thead>
+            <tbody id="productsTable">
+                <% for(const product of products){ %> 
+                    <tr>
+                    <th scope="row"><%= product.id %></th>
+                    <td><%= product.title %></td>
+                    <td>$<%= product.price %></td>
+                    <td><img src="<%= product.img %>" class="card-img-top" alt="<%= product.title %>" style="max-width:100px;"></td>
+                    </tr>
+                <% } %> 
+            </tbody>
+        </table>
+    <% } else{ %> 
+        <div>No hay productos disponibles</div>
+    <% } %> 
+</div>
