@@ -16,10 +16,15 @@
 </head>
 <body>
     <div class="contenido login"> 
-        <form action="/" method="post">
+        <form action="/login" method="post">
             <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Nombre:</label>
-              <input type="text" class="form-control" id="nameUser" name="nameUser" aria-describedby="emailHelp" placeholder="Ingresa tu nombre">
+              <label for="email" class="form-label" >Email:</label>
+              <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Ingresa tu nombre">
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label" >Contraseña:</label>
+              <input type="password" class="form-control" id="password" name="password" aria-describedby="emailHelp" placeholder="Ingresa tu contraseña">
               <div id="emailHelp" class="form-text">We'll never share your name with anyone else.</div>
             </div>
     

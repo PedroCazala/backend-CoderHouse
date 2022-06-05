@@ -20,17 +20,39 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, email, password, done) => {
-      const user = new UserModel();
-      user.email = email;
-      user.password = UserModel.encryptPassword(password);
-      await user.save();
-      done(null, user);
-      //   User.findOne({ mail: mail }, function (err, user) {
-      //     if (err) { return done(err); }
-      //     if (!user) { return done(null, false); }
-      //     if (!user.verifyPassword(password)) { return done(null, false); }
-      //     return done(null, user);
-      //   });
+      const user = UserModel.findOne({email:email})
+      if(!user){
+        const messageSingUpError =`El usuario con mail ${email}, ya existe, por favor ingresar un nuevo mail, ...ver como enviar una respuesta`
+        console.log(messageSingUpError);
+        // return done(null,messageSingUpError)
+      }else{
+        const newUser = new UserModel();
+        newUser.email = email;
+        newUser.password = newUser.encryptPassword(password);
+        await newUser.save();
+        done(null, newUser); 
+      }
     }
   )
 );
+passport.use( "local-signin", new LocalStrategy( {
+  usernameField: "email",
+  passwordField: "password",
+  passReqToCallback: true,
+},async (req, email, password, done)=>{
+  const user = await UserModel.findOne({email:email})
+
+  if(!user){
+    const messageSingInError =`El usuario no existe, ...ver como enviar una respuesta`
+        console.log(messageSingInError);
+    done(null,false)
+  }else if(!user.comparePassword(password)){
+    const messageSingInError =`La contraseña es incorrecta, ...ver como enviar una respuesta`
+    console.log(messageSingInError);
+done(null,false)
+  }else{
+    req.session.email = email
+    console.log('el mail de la session es ', req.session);
+    done(null,user)
+  }
+}))

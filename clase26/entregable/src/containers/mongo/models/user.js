@@ -7,11 +7,12 @@ const usersSchema = new Schema({
     email:String,
     password:String
 })
-usersSchema.method.encryptPassword =(password)=>{
+usersSchema.methods.encryptPassword =(password)=>{
     return bcrypt.hashSync(password,bcrypt.genSaltSync(10))
 }
 
-usersSchema.method.comparePassword = (password)=>{
+usersSchema.methods.comparePassword = function (password) {
     return  bcrypt.compareSync(password,this.password)
 }
-export const UserModel = mongoose.model("Users", usersSchema)
+const UserModel = mongoose.model("Users", usersSchema)
+export {UserModel}

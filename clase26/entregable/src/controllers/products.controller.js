@@ -40,12 +40,7 @@ export default class productController{
       try {
         passport.authenticate('local', { failureRedirect: '/login' }),
         res.redirect('/');
-        // const products = this.productService.products
-        // console.log(this.productService.products)
-        // req.session.nameUser = req.body.nameUser
-
-        // const name = req.session.nameUser
-        // res.render('index',{products, messages,name})
+        
       } catch (error) {
         console.log(error, 'index en product controller')
       }
@@ -54,8 +49,12 @@ export default class productController{
       try {
         const products = this.productService.products
 
-        const name =req.session.nameUser || '😁'
-        res.render('index',{products, messages,name})
+        // const email = req.session  //|| '😁'
+        // console.log('el emmail de la sessione es: ',email);
+        const id = req.session.passport.user  
+        // console.log('el emmail de la sessione es: ',id);
+        const email = await UserModel.findOne({_id:id})|| '😁'
+        res.render('index',{products, messages,email})
       } catch (error) {
         console.log(error, 'index en product controller')
       }
