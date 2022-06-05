@@ -1,6 +1,7 @@
 import productService from "../services/products.service.js";
 import { products,messages } from "../../server.js";
-import { UserModel } from "../containers/mongo/mongo.js";
+import { UserModel  } from "../containers/mongo/models/user.js";
+import passport from "passport";
 
 export default class productController{
     constructor(){
@@ -10,13 +11,6 @@ export default class productController{
       this.createProducts =this.createProducts.bind(this)
     }
     
-    async loginView(req,res){
-      try {
-        res.render('login')
-      } catch (error) {
-        console.log(error, 'loginView en product controller')
-      }
-    }
     registerView(req,res){
       try {
         res.render('register')
@@ -34,14 +28,24 @@ export default class productController{
         console.log(error, 'loginView en product controller')
       }
     }
+
+    async loginView(req,res){
+      try {
+        res.render('login')
+      } catch (error) {
+        console.log(error, 'loginView en product controller')
+      }
+    }
     async login(req,res){
       try {
+        passport.authenticate('local', { failureRedirect: '/login' }),
+        res.redirect('/');
         // const products = this.productService.products
         // console.log(this.productService.products)
-        req.session.nameUser = req.body.nameUser
+        // req.session.nameUser = req.body.nameUser
 
-        const name = req.session.nameUser
-        res.render('index',{products, messages,name})
+        // const name = req.session.nameUser
+        // res.render('index',{products, messages,name})
       } catch (error) {
         console.log(error, 'index en product controller')
       }

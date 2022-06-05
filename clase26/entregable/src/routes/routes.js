@@ -1,7 +1,7 @@
 import express from "express";
+import passport from "passport";
 import productController from '../controllers/products.controller.js'
-
-
+ 
 export class Routes extends express.Router{
     constructor(){
         super()
@@ -22,6 +22,12 @@ export class Routes extends express.Router{
 
         this.get('/register',this.productController.registerView)
 
-        this.post('/register',this.productController.register)
+        this.post('/register',passport.authenticate('local-signup',{
+            successRedirect:'/profile',
+            failureRedirect:'/register',
+            passReqToCallback:true
+        }))
+
+        this.get("/profile",(req,res)=>{res.send('profile')})
     }
 }

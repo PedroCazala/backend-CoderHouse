@@ -2,6 +2,7 @@ import express from 'express';
 import { Server as HttpServer} from 'http' 
 import {Server as IOServer} from 'socket.io'
 import { Routes } from './src/routes/routes.js';
+import './src/containers/mongo/mongo.js'
 // const { Server: HttpServer } = require("http");
 // const { Server: IOServer } = require("socket.io");
 
@@ -9,6 +10,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import connectMongo from "connect-mongo"
 import { claveMongo } from './claves.js';
+import passport from 'passport';
 // import { options } from './options/mariaDB.js';
 // import {knex} from knex
 // knex(options)
@@ -25,14 +27,15 @@ const PORT = 8080
 const server = httpServer.listen(PORT,()=>{console.log(`🔥Escuchando puerto http://localhost:${server.address().port}`)})
 server.on('error', error => console.log(`Error en el servidor ${error}`))
 
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-
+//database de sesiones
 const MongoStore = connectMongo.create({
     mongoUrl:`mongodb+srv://pedro:${claveMongo}@cluster0.tugf9.mongodb.net/session` || 'mongodb://localhost:27017/sesiones', //Servidor mongo local
     ttl: 10
 })
 
+//middleware
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 app.use(session({
     store: MongoStore,
@@ -40,14 +43,16 @@ app.use(session({
     resave: false,
     saveUninitialized:false
 }))
-
-
+app.use(passport.initialize())
+app.use(passport.session())
+import './src/passport/passport-local.js'
 app.set('view engine','ejs')
 app.set('views','./views')
 
 app.use(express.static('./public'));
 export let products = [];
 
+//routes
 app.use('/',new Routes())
 
 
