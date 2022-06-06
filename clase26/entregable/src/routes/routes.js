@@ -1,5 +1,6 @@
 import express from "express";
 import passport from "passport";
+import { UserModel } from "../containers/mongo/models/user.js";
 import productController from '../controllers/products.controller.js'
  
 export class Routes extends express.Router{
@@ -16,23 +17,31 @@ export class Routes extends express.Router{
         //cuando abro sin logueo
         this.get('/',this.productController.index)
         //eliminar la session
-        this.get('/logout',this.productController.redirectLogin)
+        this.get('/logout',this.productController.logout)
         //faker que genera productos
         this.get("/api/productos-test/:cant?", this.productController.createProducts);
 
         this.get('/register',this.productController.registerView)
 
-        this.post('/login',passport.authenticate('local-signin',{
-            successRedirect:'/',
+        this.post('/login',passport.authenticate('local-login',{
+            successRedirect:'/profile',
             failureRedirect:'/login',
             passReqToCallback:true
-        }))
-        this.post('/register',passport.authenticate('local-signup',{
+        }) )
+        this.post('/register', passport.authenticate('local-signup',{
             successRedirect:'/profile',
             failureRedirect:'/register',
             passReqToCallback:true
         }))
 
-        this.get("/profile",(req,res)=>{res.send('profile')})
+        this.get("/profile",async(req,res)=>{
+            console.log(req.session);
+            let user = '😁'
+            if(req.session.passport){
+                user = await UserModel.find({_id:req.session.passport.user},{email:1})
+            }
+            
+            res.send({profile:user})
+        })
     }
 }

@@ -49,11 +49,13 @@ export default class productController{
       try {
         const products = this.productService.products
 
-        // const email = req.session  //|| '😁'
-        // console.log('el emmail de la sessione es: ',email);
-        const id = req.session.passport.user  
-        // console.log('el emmail de la sessione es: ',id);
-        const email = await UserModel.findOne({_id:id})|| '😁'
+        let email = /* passport.deserializeUser()|| */ '😁'
+        if(req.session.passport){
+          email = await UserModel.find({_id:req.session.passport.user},{email:1})
+          email=email[0].email
+          console.log('email',email);
+        }
+        console.log(req.session);
         res.render('index',{products, messages,email})
       } catch (error) {
         console.log(error, 'index en product controller')
@@ -62,6 +64,7 @@ export default class productController{
     async logout(req,res){
       try {
         const userName = req.session.nameUser
+        // req.logout()
         req.session.destroy()
         res.render('logout',{userName})
       } catch (error) {

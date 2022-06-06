@@ -51,3 +51,9 @@ td{
     display: flex;
     justify-content: space-around;
 }
+h1{
+    text-align: center;
+}
+.logoCoder{
+    max-width: 10%;
+}

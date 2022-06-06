@@ -7,8 +7,8 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 passport.deserializeUser(async (id, done) => {
- const user = await UserModel.findById(id);
-  done(null, user);
+  const user = await UserModel.findById(id);
+  done(null, user); 
 });
 
 passport.use(
@@ -35,12 +35,13 @@ passport.use(
     }
   )
 );
-passport.use( "local-signin", new LocalStrategy( {
+passport.use( "local-login", new LocalStrategy( {
   usernameField: "email",
   passwordField: "password",
   passReqToCallback: true,
 },async (req, email, password, done)=>{
   const user = await UserModel.findOne({email:email})
+
 
   if(!user){
     const messageSingInError =`El usuario no existe, ...ver como enviar una respuesta`
@@ -49,10 +50,11 @@ passport.use( "local-signin", new LocalStrategy( {
   }else if(!user.comparePassword(password)){
     const messageSingInError =`La contraseña es incorrecta, ...ver como enviar una respuesta`
     console.log(messageSingInError);
-done(null,false)
+  done(null,false)
   }else{
-    req.session.email = email
-    console.log('el mail de la session es ', req.session);
+    req.session.user = user
+//     // console.log('el mail de la session es ', req.session);
+    console.log(user);  
     done(null,user)
   }
 }))
