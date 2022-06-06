@@ -24,7 +24,7 @@ export class Routes extends express.Router{
         this.get('/register',this.productController.registerView)
 
         this.post('/login',passport.authenticate('local-login',{
-            successRedirect:'/profile',
+            successRedirect:'/',
             failureRedirect:'/login',
             passReqToCallback:true
         }) )
