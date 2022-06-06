@@ -52,9 +52,6 @@ passport.use( "local-login", new LocalStrategy( {
     console.log(messageSingInError);
   done(null,false)
   }else{
-    req.session.user = user
-//     // console.log('el mail de la session es ', req.session);
-    console.log(user);  
     done(null,user)
   }
 }))

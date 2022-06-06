@@ -35,7 +35,6 @@ export class Routes extends express.Router{
         }))
 
         this.get("/profile",async(req,res)=>{
-            console.log(req.session);
             let user = '😁'
             if(req.session.passport){
                 user = await UserModel.find({_id:req.session.passport.user},{email:1})

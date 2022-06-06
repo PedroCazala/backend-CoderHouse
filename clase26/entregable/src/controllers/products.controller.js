@@ -53,9 +53,7 @@ export default class productController{
         if(req.session.passport){
           email = await UserModel.find({_id:req.session.passport.user},{email:1})
           email=email[0].email
-          console.log('email',email);
         }
-        console.log(req.session);
         res.render('index',{products, messages,email})
       } catch (error) {
         console.log(error, 'index en product controller')
