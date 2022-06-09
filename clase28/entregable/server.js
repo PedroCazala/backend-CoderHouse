@@ -8,9 +8,13 @@ import './src/containers/mongo/mongo.js'
 
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+
+//MONGO
 import connectMongo from "connect-mongo"
-import { claveMongo } from './claves.js';
+import { mongoConfig } from './config.js';
+
 import passport from 'passport';
+import {configuration} from './config.js'
 // import { options } from './options/mariaDB.js';
 // import {knex} from knex
 // knex(options)
@@ -23,13 +27,13 @@ const app = express();
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 
-const PORT = 8080
-const server = httpServer.listen(PORT,()=>{console.log(`🔥Escuchando puerto http://localhost:${server.address().port}`)})
+// const PORT = 8080
+const server = httpServer.listen(configuration.PORT,()=>{console.log(`🔥Escuchando puerto http://localhost:${server.address().port}`)})
 server.on('error', error => console.log(`Error en el servidor ${error}`))
 
 //database de sesiones
 const MongoStore = connectMongo.create({
-    mongoUrl:`mongodb+srv://pedro:${claveMongo}@cluster0.tugf9.mongodb.net/session` || 'mongodb://localhost:27017/sesiones', //Servidor mongo local
+    mongoUrl:`mongodb+srv://pedro:${mongoConfig.PASSWORD}@cluster0.tugf9.mongodb.net/session` || 'mongodb://localhost:27017/sesiones', //Servidor mongo local
     ttl: 10
 })
 

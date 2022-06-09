@@ -37,10 +37,11 @@ export class Routes extends  express.Router{
         this.get("/profile",async(req,res)=>{
             let user = '😁'
             if(req.session.passport){
-                user = await UserModel.find({_id:req.session.passport.user},{email:1})
+                // user = await UserModel.find({_id:req.session.passport.user},{email:1})
+                user = req.user
             }
             
-            res.send({profile:user})
+            res.send({user})
         })
     }
 }

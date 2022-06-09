@@ -40,8 +40,7 @@ passport.use( "local-login", new LocalStrategy( {
   passwordField: "password",
   passReqToCallback: true,
 },async (req, email, password, done)=>{
-  const user = await UserModel.findOne({email:email})
-
+  const user = await UserModel.findOne({email:email}) 
 
   if(!user){
     const messageSingInError =`El usuario no existe, ...ver como enviar una respuesta`

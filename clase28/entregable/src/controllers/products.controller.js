@@ -59,7 +59,7 @@ export default class productController{
         console.log(error, 'index en product controller')
       }
     }
-    async logout(req,res){
+    logout(req,res){
       try {
         const userName = req.session.nameUser
         // req.logout()
