@@ -2,13 +2,13 @@ import express from "express";
 import passport from "passport";
 import { UserModel } from "../containers/mongo/models/user.js";
 import productController from '../controllers/products.controller.js'
-import infoController from '../controllers/info.controller.js'
+import clase28Controller from '../controllers/clase28.controller.js'
  
 export class Routes extends  express.Router{
     constructor(){
         super()
         this.productController = new productController();
-        this.infoController = new infoController();
+        this.clase28Controller = new clase28Controller();
         
         //muestra la vista login
         this.get('/login',this.productController.loginView)
@@ -45,6 +45,8 @@ export class Routes extends  express.Router{
             res.send({user})
         })
 
-        this.get("/info",this.infoController.info)
+        this.get("/info",this.clase28Controller.info)
+
+        this.get('/api/randoms',this.clase28Controller.randoms)
     }
 }

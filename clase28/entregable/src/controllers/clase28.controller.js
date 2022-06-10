@@ -1,4 +1,4 @@
-export default class infoController{
+export default class {
     constructor(){
 
     }
@@ -12,6 +12,17 @@ export default class infoController{
             Carpeta_del_proyecto: process.cwd(),
             Memoria_total_reservada_rss: process.memoryUsage()
         }
-        res.send(info/* ,process.env */)
-      }
+        res.send(info)
+    }
+
+    randoms(req,res){
+        let number = req.query.number || 1e8
+        const generatedNumber = []
+        for(let i =1; i < number;i++){
+            let aleatorio =parseInt( Math.random() * (1000 - 1) + 1);
+            generatedNumber.push(aleatorio);
+        }
+
+        res.send({number})
+    }
 }
