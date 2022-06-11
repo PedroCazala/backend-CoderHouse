@@ -31,18 +31,18 @@ const io = new IOServer(httpServer);
 const server = httpServer.listen(configuration.PORT,()=>{console.log(`🔥Escuchando puerto http://localhost:${server.address().port}`)})
 server.on('error', error => console.log(`Error en el servidor ${error}`))
 
-//database de sesiones
-const MongoStore = connectMongo.create({
-    mongoUrl:`mongodb+srv://pedro:${mongoConfig.PASSWORD}@cluster0.tugf9.mongodb.net/session` || 'mongodb://localhost:27017/sesiones', //Servidor mongo local
-    ttl: 10
-})
+// //database de sesiones
+// const MongoStore = connectMongo.create({
+//     mongoUrl:/* `mongodb+srv://pedro:${mongoConfig.PASSWORD}@cluster0.tugf9.mongodb.net/session` ||  */'mongodb://localhost:27017/sesiones', //Servidor mongo local
+//     ttl: 10
+// })
 
 //middleware
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 app.use(session({
-    store: MongoStore,
+    // store: MongoStore,
     secret: 'dfafasf',
     resave: false,
     saveUninitialized:false
