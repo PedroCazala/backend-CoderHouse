@@ -3,7 +3,7 @@ import passport from "passport";
 import { UserModel } from "../containers/mongo/models/user.js";
 import productController from '../controllers/products.controller.js'
 import clase28Controller from '../controllers/clase28.controller.js'
- 
+
 export class Routes extends  express.Router{
     constructor(){
         super()

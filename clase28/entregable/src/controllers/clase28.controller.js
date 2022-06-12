@@ -1,3 +1,5 @@
+import {fork} from 'child_process'
+
 export default class {
     constructor(){
 
@@ -16,22 +18,14 @@ export default class {
     }
 
     randoms(req,res){
-        let number = req.query.number || 1e8
-        const generatedNumber = []
-        let objetoNumeros ={}
-        //generar numeros
-        for(let i =1; i < number;i++){
-            let aleatorio =parseInt( Math.random() * (1000 - 1) + 1);
-            generatedNumber.push(aleatorio);
-        }
-        //que numeros existe en el arreglo
-        for(let i=1; i <=1000;i++){
-            const numero = generatedNumber.filter((number == i)).length
-            if(numero){
-                objetoNumeros = {...objetoNumeros,i,numero} //{...objetoNumeros,numero:`${numero[0]} se repite ${numero.length()}`}
-            }
-        }
+        const forked = fork('./src/controllers/subproceso.clase28.js')
+        // forked.send('message',{number:req.query.number})
+        forked.send({numb:req.query.number})
+        // forked.se 
+        // console.log(sp1);
 
-        res.send({number,objetoNumeros})
+        forked.on('message',mens=>{
+            res.send(mens)
+        })
     }
 }
