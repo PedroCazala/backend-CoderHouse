@@ -21,10 +21,11 @@ passport.use(
     },
     async (req, email, password, done) => {
       const user = UserModel.findOne({email:email})
-      if(!user){
+      if(user){
         const messageSingUpError =`El usuario con mail ${email}, ya existe, por favor ingresar un nuevo mail, ...ver como enviar una respuesta`
         console.log(messageSingUpError);
         // return done(null,messageSingUpError)
+        done(null,false)
       }else{
         const newUser = new UserModel();
         newUser.email = email;
