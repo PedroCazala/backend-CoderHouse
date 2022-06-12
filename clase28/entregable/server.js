@@ -23,9 +23,11 @@ const app = express();
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 
-
+//pasar por argumento el puerto
 import parseArgs from 'minimist';
 const args =parseArgs(process.argv.slice(2))
+
+//Server
 const PORT = args._[0] ||8080 /* configuration.PORT */
 const server = httpServer.listen(PORT,()=>{console.log(`🔥Escuchando puerto http://localhost:${server.address().port}`)})
 server.on('error', error => console.log(`Error en el servidor ${error}`))
