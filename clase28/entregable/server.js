@@ -9,10 +9,6 @@ import './src/containers/mongo/mongo.js'
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 
-//MONGO
-import connectMongo from "connect-mongo"
-import { mongoConfig } from './config.js';
-
 import passport from 'passport';
 import {configuration} from './config.js'
 // import { options } from './options/mariaDB.js';
@@ -27,15 +23,12 @@ const app = express();
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 
-// const PORT = 8080
-const server = httpServer.listen(configuration.PORT,()=>{console.log(`🔥Escuchando puerto http://localhost:${server.address().port}`)})
-server.on('error', error => console.log(`Error en el servidor ${error}`))
 
-// //database de sesiones
-// const MongoStore = connectMongo.create({
-//     mongoUrl:/* `mongodb+srv://pedro:${mongoConfig.PASSWORD}@cluster0.tugf9.mongodb.net/session` ||  */'mongodb://localhost:27017/sesiones', //Servidor mongo local
-//     ttl: 10
-// })
+import parseArgs from 'minimist';
+const args =parseArgs(process.argv.slice(2))
+const PORT = args._[0] ||8080 /* configuration.PORT */
+const server = httpServer.listen(PORT,()=>{console.log(`🔥Escuchando puerto http://localhost:${server.address().port}`)})
+server.on('error', error => console.log(`Error en el servidor ${error}`))
 
 //middleware
 app.use(express.json())
