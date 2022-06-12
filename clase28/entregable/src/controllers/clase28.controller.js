@@ -20,7 +20,7 @@ export default class {
     randoms(req,res){
         const forked = fork('./src/controllers/subproceso.clase28.js')
         // forked.send('message',{number:req.query.number})
-        forked.send({numb:req.query.number})
+        forked.send(req.query.number||1e8)
         // forked.se 
         // console.log(sp1);
 
