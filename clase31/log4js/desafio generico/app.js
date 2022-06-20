@@ -21,6 +21,12 @@ app.get('/sumar',(req,res)=>{
 })
 
 app.get('*',(req,res) => {
-    logger.warm('ruta no encontrada')
+    logger.warn('ruta no encontrada')
     res.send('ruta no encontrada')
 })
+// logger.trace("Entering cheese testing");
+// logger.debug("Got cheese.");
+// logger.info("Cheese is Comté.");
+// logger.warn("Cheese is quite smelly.");
+// logger.error("Cheese is too ripe!");
+// logger.fatal("Cheese was breeding ground for listeria.");

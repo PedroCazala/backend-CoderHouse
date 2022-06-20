@@ -8,7 +8,7 @@ log4js.configure({
     categories: {
       default: { appenders: ["miLoggerConsole"], level: "info" },
       consola: { appenders: ["miLoggerConsole"], level: "info" },
-      archivo: { appenders: ["miLoggerFile"], level: "error" }
+      archivo: { appenders: ["miLoggerFile"], level: "warn" }
     }
 })
 export const logger = log4js.getLogger();
