@@ -39,8 +39,6 @@ server.on('error', error => console.log(`Error en el servidor ${error}`))
 //middleware
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-// import compression from 'compression'
-// app.use(compression())
 app.use(cookieParser())
 app.use(session({
     // store: MongoStore,
