@@ -20,7 +20,7 @@ app.get('/sumar',(req,res)=>{
     res.send(`Hola, ${suma}`)
 })
 
-app.get('*',(req,res) => {
+app.get('*',(req,res) => { 
     logger.warn('ruta no encontrada')
     res.send('ruta no encontrada')
 })

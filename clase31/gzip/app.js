@@ -17,4 +17,5 @@ app.get('/',(req,res) => {
     }
 })
 
-app.listen(8080)
+const PORT = 8181
+const server = app.listen(PORT,()=>console.log(`escuchando en http://localhost:${PORT}`))

@@ -19,13 +19,13 @@ import {configuration} from './config.js'
 // const  knex  = require('knex')(options)
 
 
-const app = express();
+export const app = express();
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 
 //pasar por argumento el puerto
 import parseArgs from 'minimist';
-export const args =parseArgs(process.argv.slice(2))
+export const args = parseArgs(process.argv.slice(2))
 
 //Modo cluster o fork
 import {mode} from './modo.js'
@@ -55,9 +55,17 @@ app.set('views','./views')
 app.use(express.static('./public'));
 export let products = [];
 
-//routes
-app.use('/',new Routes())
+//gzip
+import compression from 'compression'
+app.use(compression())
 
+
+//routes
+app.use('/',allRoutes,new Routes())
+
+// logs
+import { allRoutes, logs } from './logs/logs.js';
+logs()
 
 // const getProducts = async ()=>{
 //     try{

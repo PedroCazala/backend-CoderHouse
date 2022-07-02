@@ -3,7 +3,9 @@ import {fork} from 'child_process'
 import cluster from 'cluster'
 import { cpus } from 'os'
 export const mode = () => {
-    const modo = args.modo.toUpperCase()|| false
+    console.log('args : ',args);
+    console.log('args modo: ',args.modo);
+    const modo = args.modo/* .toUpperCase() */|| false
     if (modo == 'CLUSTER') {
         const numCPUs = cpus().length
 

@@ -1,0 +1,11 @@
+
+[2022-07-02T17:03:57.407] [WARN] archivoWarn - Intento de ingreso a ruta inexistente /prueba%20de%20ruta%20inexistente
+[2022-07-02T17:04:27.428] [WARN] archivoWarn - Intento de ingreso a ruta inexistente /prueba_de_ruta_inexistente2
+[2022-07-02T17:05:57.681] [WARN] archivoWarn - Intento de ingreso a ruta inexistente /prueba_de_ruta_inexistente2
+[2022-07-02T17:09:12.516] [WARN] archivoWarn - Intento de ingreso a ruta inexistente /prueba_de_ruta_inexistente3 y el metodo es: GET
+[2022-07-02T17:09:58.188] [WARN] archivoWarn - Intento de ingreso a ruta inexistente / y el metodo es: GET
+[2022-07-02T17:10:02.614] [WARN] archivoWarn - Intento de ingreso a ruta inexistente / y el metodo es: GET
+[2022-07-02T17:12:14.682] [WARN] archivoWarn - Intento de ingreso a ruta inexistente /loginDeMentira y el metodo es: POST
+[2022-07-02T17:31:24.334] [WARN] archivoWarn - Intento de ingreso a ruta inexistente /ml y el metodo es: GET
+[2022-07-02T17:36:49.050] [WARN] archivoWarn - Intento de ingreso a ruta inexistente /ml y el metodo es: GET
+[2022-07-02T17:38:30.977] [WARN] archivoWarn - Intento de ingreso a ruta inexistente /jbkjb y el metodo es: GET
