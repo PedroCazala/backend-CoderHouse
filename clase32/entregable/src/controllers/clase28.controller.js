@@ -7,7 +7,7 @@ export default class {
     constructor(){
 
     }
-    info(req,res){
+     info(req,res){
         const info ={
             Argumentos_de_entrada:'NO ENTIENDO A QUE SE REFIERE',
             Path_de_ejecución:process.execPath,
@@ -18,6 +18,7 @@ export default class {
             Memoria_total_reservada_rss: process.memoryUsage(),
             numeros_de_procesadores:numCPUs
         }
+        console.log(info)
         res.send(info)
     }
 

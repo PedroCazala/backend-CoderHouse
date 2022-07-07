@@ -1,5 +1,6 @@
 import generateProduct from "../utils/products.utils.js";
 import { products } from "../../server.js";
+import { loggerError } from "../../logs/log4js.js";
 
 export default class productService{
     constructor(){
@@ -17,7 +18,7 @@ export default class productService{
             this.lastId = cant;
             return this.products;
         } catch (error) {
-            console.log(error,'entro al catch en products.service');
+            loggerError.error(error,'entro al catch en products.service')
         }
     }
 

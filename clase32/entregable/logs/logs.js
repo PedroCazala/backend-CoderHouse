@@ -23,7 +23,7 @@ export const logs = ()=>{
 export const allRoutes = (req,res,next)=>{
     const ruta = req.path
     const metodo = req.method
-    logger.info(`Intento de ingreso a ruta inexistente ${ruta} y el metodo es: ${metodo}`)
+    logger.info(`Ingreso a ruta: ${ruta} y el metodo es: ${metodo}`)
     next()
 }
 

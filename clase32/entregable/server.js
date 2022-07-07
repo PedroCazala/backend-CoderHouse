@@ -130,20 +130,14 @@ export let messages = [];
 
 
 io.on("connection", function (socket) {
-    // console.log("Un cliente se ha conectado");
-
     socket.on("newProduct", (newProducto) => {
         const id = products.length + 1
         products.push({id,...newProducto})
-        // updateProducts()
         io.sockets.emit("products", products);
     });
     socket.on('newMessage',(newMessage)=>{
-        // console.log(newMessage);
         const id = messages.length + 1
         messages.push({id,...newMessage})
-        // console.log(messages);
-        // updateMessages()
         io.sockets.emit("chat", messages);
     })
 })

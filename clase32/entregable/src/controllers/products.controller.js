@@ -2,6 +2,7 @@ import productService from "../services/products.service.js";
 import { products,messages } from "../../server.js";
 import { UserModel  } from "../containers/mongo/models/user.js";
 import passport from "passport";
+import { loggerError } from "../../logs/log4js.js";
 
 export default class productController{
     constructor(){
@@ -22,21 +23,21 @@ export default class productController{
       try {
         const data = req.body
         console.log(data);
-        UserModel.insertMany([data])
+        await UserModel.insertMany([data])
         res.send('se cargaron los datos de usuario')
       } catch (error) {
         console.log(error, 'loginView en product controller')
       }
     }
 
-    async loginView(req,res){
+    loginView(req,res){
       try {
         res.render('login')
       } catch (error) {
         console.log(error, 'loginView en product controller')
       }
     }
-    async login(req,res){
+    login(req,res){
       try {
         passport.authenticate('local', { failureRedirect: '/login' }),
         res.redirect('/');
@@ -69,7 +70,7 @@ export default class productController{
         console.log(error.message); 
       }
     }
-    async redirectLogin(req,res){
+    redirectLogin(req,res){
       setTimeout(()=>res.redirect('/login'),5000)
     }
     async createProducts(req,res){
@@ -79,6 +80,7 @@ export default class productController{
             res.status(200).json({ products: response });
           } catch (error) {
             console.log(error);
+            loggerError.error(error)
           }
     }
 }
