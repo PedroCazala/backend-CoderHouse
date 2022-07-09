@@ -15,11 +15,41 @@
 </head>
 <body>
     <div class="allContainer">
-        register
+        <h1>Register</h1>
+        <form class="formsProfile" action="/register" method="post">
+            <div class="mb-3">
+              <label for="email" class="form-label">Ingresa tu email</label>
+              <input type="email" class="form-control" id="email" name="email">
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Ingresa tu nombre</label>
+                <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Ingresa tu dirección</label>
+                <input type="text" class="form-control" id="address" name="address">
+            </div>
+            <div class="mb-3">
+                <label for="age" class="form-label">Ingresa tu edad</label>
+                <input type="number" class="form-control" id="age" name="age">
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Ingresa tu teléfono</label>
+                <input type="phone" class="form-control" id="phone" name="phone">
+            </div>
+            <p>ver como hacer para agrergar imagen</p>
+            <button type="submit" class="btn btn-dark">Submit</button>
+        </form>
+
         <form action="/login" method="get">
             <p>Ya tenes una cuenta:</p>
             <button class="btn btn-outline-dark" type="submit">Ir a iniciar sesión</button>
         </form>
+        <br>
         <form action="/" method="get">
             <button class="btn btn-outline-light" type="submit">Volver a la pagina principal</button>
         </form>

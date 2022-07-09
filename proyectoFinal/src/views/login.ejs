@@ -15,7 +15,18 @@
 </head>
 <body>
     <div class="allContainer">
-        login
+        <h1>Login</h1>
+        <form class="formsProfile" action="/login" method="post">
+            <div class="mb-3">
+              <label for="email" class="form-label">Ingresa tu email</label>
+              <input type="email" class="form-control" id="email" name="email">
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <button type="submit" class="btn btn-dark">Submit</button>
+        </form>
         <form action="/register" method="get">
             <p>Todavía no tenes una cuenta:</p>
             <button class="btn btn-outline-dark" type="submit">Ir a registrarse</button>

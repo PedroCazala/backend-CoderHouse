@@ -22,8 +22,24 @@ h1{
     display: flex;
     align-items: center;
     margin: 4% 2%;
+    justify-content: center;
 }
 .logoCoder{
     max-width: 100px;
     border-radius: 15px;
+}
+.storageMenu{
+    width: min-content;
+    margin: auto;
+    color: pink;
+    font-weight: bolder;
+}
+.formsProfile > div > input{
+    color: pink;
+    background-color: black;
+}
+.formsProfile > div > input:focus{
+    color: pink;
+    background-color: white;
+    border: none;
 }

@@ -1,8 +1,9 @@
 import express from 'express'
 import { allRoutes } from './src/routes/allRoutes.js'
+import 'dotenv/config'
 
 export const app = express()
-const PORT = 8080
+const PORT = process.env.PORT || 8000
 
 //Servidor en marcha
 const server = app.listen(PORT,()=>{
