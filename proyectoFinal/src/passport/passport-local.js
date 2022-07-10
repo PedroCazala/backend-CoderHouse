@@ -2,13 +2,14 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 // import { UserDaoMongoDB } from "../container/daos/user/UserDaoMongoDB.js";
 import { User } from '../container/daos/user/userModel.js'
+import { connectMongoDB } from "../container/MongoDbContainer.js";
 
+connectMongoDB()
 passport.serializeUser((user, done) => {
-    done(null, user.email);
+    done(null, user._id);
 });
 passport.deserializeUser(async (id, done) => {
-    // const user = await UserModel.findById(id);
-    const user = users.find(user => user.email == id)
+    const user = await User.findById(id);
     done(null, user); 
 });
 
@@ -25,24 +26,24 @@ passport.use(
           passwordField: "password",
           passReqToCallback: true,
         },
-        async (req, email, password,done) => {
-            // const user = await UserModel.findOne({email:email})
+        async (req, email, password, done) => {
             const user = await User.findOne({email:email})
             if(user){
-              // console.log(user);
-              const messageSingUpError =`El usuario con mail ${email}, ya existe, por favor ingresar un nuevo mail, ...ver como enviar una respuesta`
-              console.log(messageSingUpError);
-              // return done(null,messageSingUpError)
-              done(null,false)
+                console.log(`El usuario con el email ${email}, ya existe`);
+                done(null,false)
             }else{
-            //   const newUser = new UserModel();
-                const newUser = {email,password}
-            //   newUser.email = email;
-            //   newUser.password = newUser.encryptPassword(password);
-            //   await newUser.save();
-                users.push(newUser)
-                console.log(users);
-                done(null, newUser); 
+                const newUser = await new User();
+                
+                const {name,address, age, phone, img} =req.body
+                newUser.name = name;
+                newUser.address = address;
+                newUser.age = age;
+                newUser.phone = phone;
+                newUser.img = img;
+                newUser.email = email;
+                newUser.password = newUser.encryptPassword(password);
+                await newUser.save();
+                done(null, newUser);
             }
         }
     )
@@ -54,16 +55,15 @@ passport.use(
         {usernameField: "email",
         passwordField: "password",
         passReqToCallback: true,},
-        (req, email, password, done)=>{
-            const user = users.find(user => user.email == email)
-            // const user =
+        async (req, email, password, done)=>{
+            const user = await User.findOne({email:email})
             if (!user) {
                 const messageSingInError =`El usuario no existe, ...ver como enviar una respuesta`
                 console.log(messageSingInError);
                 done(null,false)
-            }else if(user.password != password){
+            }else if(!user.comparePassword(password)){
                 const messageSingInError =`La contraseña es incorrecta, ...ver como enviar una respuesta`
-                console.log(messageSingInError);
+                console.log(messageSingInError,user.password,password);
                 done(null,false)
             }else{
                 done(null,user)

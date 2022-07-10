@@ -9,8 +9,8 @@ const usersSchema = new mongoose.Schema({
     name:{type:String,required:true,max:100},
     address:{type:String,required:true,max:100},
     age:{type:Number,required:true,max:100},
-    phone:{type:Number,required:true,max:100},
-    img:{type:String,required:true}
+    phone:{type:Number,required:true},
+    img:{type:String,required:false}
 })
 usersSchema.methods.encryptPassword =(password)=>{
     return bcrypt.hashSync(password,bcrypt.genSaltSync(10))
@@ -20,4 +20,5 @@ usersSchema.methods.comparePassword = function (password) {
     return  bcrypt.compareSync(password,this.password)
 }
 
-export const User = mongoose.model(userCollection,usersSchema)
+const User = mongoose.model(userCollection,usersSchema)
+export {User}
