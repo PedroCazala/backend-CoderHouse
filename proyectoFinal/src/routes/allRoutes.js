@@ -1,14 +1,16 @@
 import { Router } from "express";
 import { cartRouter } from "./cartRoutes.js";
 import { productsRouter } from "./productsRoutes.js";
-import { userProfile } from "./userProfile.js";
+import { userProfile } from "./userProfileRoutes.js";
 
 
 const allRoutes = Router()
 
 //index
 allRoutes.get('/',(req,res) => {
-    res.render('index')
+    const user = req.user
+    console.log(user);
+    res.render('index',{user})
 })
 
 // allRoutes.use('/api', router)
