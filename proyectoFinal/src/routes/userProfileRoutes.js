@@ -13,6 +13,7 @@ userProfile.post('/login',passport.authenticate('local-login',{
     passReqToCallback:true
 }))
 userProfile.get('/logout',(req,res) =>{
+    req.session.destroy()
     res.render('logout')
 })
 userProfile.get('/register',(req,res) =>{

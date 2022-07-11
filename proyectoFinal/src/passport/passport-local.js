@@ -40,12 +40,10 @@ passport.use(
                 newUser.address = address;
                 newUser.age = age;
                 newUser.phone = phone;
-                // // newUser.img = `${email}.jpg`;
-                // newUser.img = email;
+                newUser.img = req.file.filename;
                 newUser.email = email;
                 newUser.password = newUser.encryptPassword(password);
                 await newUser.save();
-
                 done(null, newUser);
             }
         }

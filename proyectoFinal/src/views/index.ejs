@@ -21,8 +21,6 @@
             <p>Hola mundo, este es el index</p>
         </div>
         <% if (user){%>
-            <h2>Hola <%= user.name %></h2>
-
             <%- include('./partials/navbar'); %>
         <% } %>
 
@@ -36,11 +34,11 @@
         <div class="profileButtons">
             <form action="/login" method="get">
                 <p>Ya tenes una cuenta:</p>
-                <button class="btn btn-outline-dark" type="submit">Ir a iniciar sesión</button>
+                <button class="btn btn-dark" type="submit">Ir a iniciar sesión</button>
             </form>
             <form action="/register" method="get">
                 <p>Todavía no tenes una cuenta:</p>
-                <button class="btn btn-outline-dark" type="submit">Ir a registrarse</button>
+                <button class="btn btn-dark" type="submit">Ir a registrarse</button>
             </form>
         </div>
     </div>

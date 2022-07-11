@@ -11,7 +11,12 @@
             crossorigin="anonymous"
     />
     <link rel="stylesheet" type="text/css" href="main.css">
-    <title>Index</title>
+    <title>Register || Proyecto final</title>
+    <link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+   />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 </head>
 <body>
     <div class="allContainer">
@@ -39,10 +44,10 @@
             </div>
             <div class="mb-3">
                 <label for="phone" class="form-label">Ingresa tu teléfono</label>
-                <input type="phone" class="form-control" id="phone" name="phone">
+                <input type="tel" class="form-control" id="phone" name="phone">
             </div>
             <div class="mb-3">
-                <label for="img" class="form-label">Ingresa una imagen [ara tu foto de perfil</label>
+                <label for="img" class="form-label">Ingresa una imagen para tu foto de perfil</label>
                 <input type="file" class="form-control" id="img" name="img">
             </div>
             <button type="submit" class="btn btn-dark">Submit</button>
@@ -50,14 +55,21 @@
 
         <form action="/login" method="get">
             <p>Ya tenes una cuenta:</p>
-            <button class="btn btn-outline-dark" type="submit">Ir a iniciar sesión</button>
+            <button class="btn btn-dark" type="submit">Ir a iniciar sesión</button>
         </form>
         <br>
         <form action="/" method="get">
-            <button class="btn btn-outline-light" type="submit">Volver a la pagina principal</button>
+            <button class="btn btn-light" type="submit">Volver a la pagina principal</button>
         </form>
     </div>
 
+    <script>
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+          utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+      </script>
     <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -65,3 +77,5 @@
     ></script>
 </body>
 </html>
+
+<!-- Para el tema del número de telefono ver: https://www.twilio.com/blog/como-crear-entradas-internacionales-de-numeros-de-telefono-en-html-y-javascript -->
