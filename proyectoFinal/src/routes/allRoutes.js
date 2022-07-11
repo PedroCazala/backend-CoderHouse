@@ -9,7 +9,6 @@ const allRoutes = Router()
 //index
 allRoutes.get('/',(req,res) => {
     const user = req.user
-    console.log(user);
     res.render('index',{user})
 })
 

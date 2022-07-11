@@ -1,5 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
+import { upload } from "../container/daos/user/avatarUpload.js";
 
 const userProfile = Router()
 
@@ -7,7 +8,7 @@ userProfile.get('/login',(req,res) =>{
     res.render('login')
 })
 userProfile.post('/login',passport.authenticate('local-login',{
-    successRedirect:'/profile',
+    successRedirect:'/',
     failureRedirect:'/error',
     passReqToCallback:true
 }))
@@ -17,19 +18,15 @@ userProfile.get('/logout',(req,res) =>{
 userProfile.get('/register',(req,res) =>{
     res.render('register')
 })
-userProfile.post('/register',
-    // (req,res) =>{
-    //     const user = req.body
-    //     res.send(user)
-    // }
+userProfile.post('/register',upload.single('img'),
     passport.authenticate("local-signup",{
-        successRedirect:'/profile',
+        successRedirect:'/',
         failureRedirect:'/register',
         passReqToCallback:true
     })
 )
 userProfile.get('/profile', (req, res) => {
-    const user = req.user
+    const user = req.user || 'No hay ninguna sesión de usuario activa'
     res.send(user)
 })
 userProfile.get('/infoUser',(req,res) =>{

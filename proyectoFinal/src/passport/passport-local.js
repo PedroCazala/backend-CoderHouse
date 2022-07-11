@@ -1,5 +1,6 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
+import { upload } from "../container/daos/user/avatarUpload.js";
 // import { UserDaoMongoDB } from "../container/daos/user/UserDaoMongoDB.js";
 import { User } from '../container/daos/user/userModel.js'
 import { connectMongoDB } from "../container/MongoDbContainer.js";
@@ -39,10 +40,12 @@ passport.use(
                 newUser.address = address;
                 newUser.age = age;
                 newUser.phone = phone;
-                newUser.img = img;
+                // // newUser.img = `${email}.jpg`;
+                // newUser.img = email;
                 newUser.email = email;
                 newUser.password = newUser.encryptPassword(password);
                 await newUser.save();
+
                 done(null, newUser);
             }
         }

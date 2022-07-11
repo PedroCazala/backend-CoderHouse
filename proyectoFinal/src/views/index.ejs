@@ -15,12 +15,15 @@
 </head>
 <body>
     <div class="allContainer">
-
-        <h1>Proyecto final Backend || Coderhouse <img class="logoCoder" src="https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded_nologo/339977/339977-1638908379250-81c51994bf213.jpg" alt="logo coder"></h1>
-        <h2>Proyecto de Pedro Cazalá</h2>
-        <p>Hola mundo, este es el index</p>
+        <div class="infoProject">
+            <h1>Proyecto final Backend || Coderhouse <img class="logoCoder" src="https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded_nologo/339977/339977-1638908379250-81c51994bf213.jpg" alt="logo coder"></h1>
+            <h2>Proyecto de Pedro Cazalá</h2>
+            <p>Hola mundo, este es el index</p>
+        </div>
         <% if (user){%>
             <h2>Hola <%= user.name %></h2>
+
+            <%- include('./partials/navbar'); %>
         <% } %>
 
         <select class="form-select storageMenu" aria-label="Default select example">
@@ -30,15 +33,16 @@
             <option value="firebase">Firebase</option>
             <option value="mongoDB">MongoDB</option>
         </select>
-   
-        <form action="/login" method="get">
-            <p>Ya tenes una cuenta:</p>
-            <button class="btn btn-outline-dark" type="submit">Ir a iniciar sesión</button>
-        </form>
-        <form action="/register" method="get">
-            <p>Todavía no tenes una cuenta:</p>
-            <button class="btn btn-outline-dark" type="submit">Ir a registrarse</button>
-        </form>
+        <div class="profileButtons">
+            <form action="/login" method="get">
+                <p>Ya tenes una cuenta:</p>
+                <button class="btn btn-outline-dark" type="submit">Ir a iniciar sesión</button>
+            </form>
+            <form action="/register" method="get">
+                <p>Todavía no tenes una cuenta:</p>
+                <button class="btn btn-outline-dark" type="submit">Ir a registrarse</button>
+            </form>
+        </div>
     </div>
     <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
