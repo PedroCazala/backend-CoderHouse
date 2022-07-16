@@ -165,6 +165,11 @@ fresh@0.5.2:
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==
 
+funcionesmatematicasbasicas@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/funcionesmatematicasbasicas/-/funcionesmatematicasbasicas-1.0.0.tgz#9154a80714998b1388edc4707359da74ee9283d6"
+  integrity sha512-HhW3FXmo+AoP5dRrEf2ZEA4GUotGuocZW+haDpt7Stre03kw7ugte6wQTh0pZrEHd7Tb77P3AOEM01maZo4UYA==
+
 function-bind@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"

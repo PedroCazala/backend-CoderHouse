@@ -1,0 +1,19 @@
+{
+  "name": "funcionesmatematicasbasicas",
+  "version": "1.0.0",
+  "description": "Proyecto con que podrás realizar funciones matemáticas básicas.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PedroCazala/backend-CoderHouse.git"
+  },
+  "author": "Pedro Cazalá",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PedroCazala/backend-CoderHouse/issues"
+  },
+  "homepage": "https://github.com/PedroCazala/backend-CoderHouse#readme"
+}
