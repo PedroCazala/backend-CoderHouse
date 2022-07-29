@@ -7,7 +7,7 @@ const routes = require('./routes');
 app.use(express.json())
 app.use('/api',routes)
 
-db.sync({force:true})// si incluyo'-  { force:true }  -' dentro del paréntesis esto resetea a 0 las tablas 
+db.sync()// si incluyo'-  { force:true }  -' dentro del paréntesis esto resetea a 0 las tablas 
 .then(function () {
     // Recién ahora estamos seguros que la conexión fue exitosa
     app.listen(3000, () => console.log(
