@@ -1,7 +1,9 @@
 const express = require('express')
-const router = express.Router()
+const routes = express.Router()
 const tweetsRouter = require('./twitters.routes')
+const usersRouter = require('./users.routes')
 
-router('/tweets',tweetsRouter)
+routes.use('/tweets',tweetsRouter)
+routes.use('/users',usersRouter)
 
-module.exports =router
+module.exports = routes
