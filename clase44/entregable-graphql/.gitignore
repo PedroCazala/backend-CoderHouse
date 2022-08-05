@@ -1,0 +1,9 @@
+./db
+firebasekery.json
+firebase-key.json
+.env
+public/uploads/*
+!public/uploads/.gitkeep
+node_modules
+dist
+firebaseKey.json
