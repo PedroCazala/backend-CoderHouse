@@ -45,5 +45,33 @@ export const argv = parseArgs(process.argv.slice(2))
 import { mode } from './src/mode/mode.js'
 mode()
 
+
 // -------- ROUTES -------
-app.use('/',allRoutes)
+// app.use('/',allRoutes)
+
+// -------- middleware para exponer Graphql -------
+
+// import {schema} from './src/graphql/models/Products.modelGraphql.js' 
+// import {ProductsService} from './src/services/products.services.js'
+import { graphqlHTTP } from 'express-graphql'
+import { ProductsService } from './src/services/products.services.js'
+import { schema } from './src/graphql/index.js'
+import { schemaCart } from './src/graphql/models/Carts.modelGraphql.js'
+
+
+// getProduct(id: ID!): Product,
+// createProduct(datos: ProductInput): Product,
+// updateProduct(id: ID!, datos: ProductInput): Product,
+// deleteProduct(id: ID!): Product,
+//crear array de productos
+const allSchemas = {...schemaCart,...schema}
+
+const root = { hello: () => 'Hello world!'/*  , bye:()=>'Bye world!',getProducts:devolverProductos(),pedro:()=>'Soy Pedro' */}
+app.use(
+    '/graphql',
+    graphqlHTTP({
+        graphiql:true,
+        rootValue: root,
+        schema: schema,
+    })
+)
