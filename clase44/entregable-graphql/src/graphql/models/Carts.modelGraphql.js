@@ -1,8 +1,20 @@
-import { graphql,buildSchema } from 'graphql'
+import {
+    GraphQLID,
+    GraphQLObjectType,
+    GraphQLString,
+    GraphQLList,
+} from "graphql";
+import { ProductType } from "./Products.modelGraphql.js";
 
-const schemaCart = buildSchema(`
-    type Query {
-        pedro: String,
-    }
-`);
-export{schemaCart}
+const CartType = new GraphQLObjectType({
+    name: "Cart",
+    description: "Cart type",
+    fields: () => ({
+        _id: { type: GraphQLID },
+        id: { type: GraphQLID },
+        products: { type: new GraphQLList(ProductType)},
+        date: { type: GraphQLString },
+    }),
+});
+
+export{CartType}

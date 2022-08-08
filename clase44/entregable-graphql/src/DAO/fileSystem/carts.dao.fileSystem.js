@@ -18,8 +18,7 @@ export class CartsDaoFileSystem extends FileSystemContainer{
     }
     static async getACart(idCart){
         super.getCartsFile()
-        const cart = Carts.find(cart=>cart.id ==idCart)
-        super.updateCartsFile()
+        const cart = Carts.find(cart=>cart.id == parseInt(idCart))
         return cart
     }
 

@@ -56,7 +56,7 @@ mode()
 import { graphqlHTTP } from 'express-graphql'
 import { ProductsService } from './src/services/products.services.js'
 import { schema } from './src/graphql/index.js'
-import { schemaCart } from './src/graphql/models/Carts.modelGraphql.js'
+// import { schemaCart } from './src/graphql/models/Carts.modelGraphql.js'
 
 
 // getProduct(id: ID!): Product,
@@ -64,14 +64,13 @@ import { schemaCart } from './src/graphql/models/Carts.modelGraphql.js'
 // updateProduct(id: ID!, datos: ProductInput): Product,
 // deleteProduct(id: ID!): Product,
 //crear array de productos
-const allSchemas = {...schemaCart,...schema}
 
 const root = { hello: () => 'Hello world!'/*  , bye:()=>'Bye world!',getProducts:devolverProductos(),pedro:()=>'Soy Pedro' */}
 app.use(
     '/graphql',
     graphqlHTTP({
         graphiql:true,
-        rootValue: root,
+        // rootValue: root,
         schema: schema,
     })
 )

@@ -51,7 +51,6 @@ import {
     GraphQLString,
   } from "graphql";
   
-  // Definimos el tipo de dato para Producto (esto es independiente a mongoose por ejemplo, esto es exclusivo para la interfaz con graphql)
   
   const ProductType = new GraphQLObjectType({
     name: "Product",
