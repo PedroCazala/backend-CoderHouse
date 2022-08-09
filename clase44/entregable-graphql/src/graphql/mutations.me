@@ -1,0 +1,71 @@
+mutation{
+# -||-||-||-||- PRODUCTOS -||-||-||-||-    
+  # ----- Crear un producto -----  
+	# saveProduct(
+	# 	name:"Plastilina2",
+	# 	description:"Para jugar",
+	# 	codigo:"ewew",
+	# 	img:"https://abanicobazar.com/wp-content/uploads/2018/01/74d33e80-1c82-4e80-aab3-c56a5f675485.jpg",
+	# 	price:500,
+	# 	stock:30
+	# ) {
+	# 	# id
+	# 	name
+	# 	description
+	# }
+# ----- Actualizar un producto -----  
+	# updateProduct(
+	# 	id:"62cddf78539feda573da0f62",
+	# 	name:"Goma Actualizado",
+	# 	description:"Para borrar",
+	# 	codigo:"ewew",
+	# 	img:"https://abanicobazar.com/wp-content/uploads/2018/01/74d33e80-1c82-4e80-aab3-c56a5f675485.jpg",
+	# 	price:237,
+	# 	stock:3
+	# ) {
+	# 	id
+	# 	name
+	# 	description
+	# 	codigo
+	# }
+# ----- Eliminar un producto -----  
+  # deleteProduct(
+  #   id:"62e42637b4a24940f0f5ed01"
+  # ) {
+  #   id
+  # }
+
+# -||-||-||-||- CARRITO -||-||-||-||-   
+# ----- Crear un carrito -----    
+  # createACart{
+  #   date
+  #   products {
+  #     id
+  #   }
+  # }
+# ----- Eliminar un carrito -----    
+  # deleteACart(id:"62f248c05679864b8d5d8e54") {
+  #   id
+  # }
+# ----- Añadir un prod al carrito -----
+  # addProductToCart(
+  #   idCart:"62e55479f5dc403e0d9a6f82",
+  #   idProduct:"62e4003352c4fb8637d6e269"
+  # ){
+  #   products {
+  #     date
+  #     _id
+  #     name
+  #   }
+  # }
+# ----- Eliminar un prod del carrito -----    
+  # deleteAProductToCart(
+  #   idCart:"62e55479f5dc403e0d9a6f82",
+  #   idProduct:"62e3fff062103cc1238b4595"
+  # ){
+  #   date
+  #   products {
+  #     _id
+  #   }
+  # }
+}

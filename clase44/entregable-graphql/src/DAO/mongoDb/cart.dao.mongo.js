@@ -3,7 +3,7 @@ import { CartsModel } from "../../models/Carts/carts.model.mongo.js"
 
 export class CartsDaoMongo{
     static async createCart(cart){
-        const mongoCart = await CartsModel.insertMany([cart])
+        const mongoCart = await CartsModel.create(cart)
         return mongoCart
     }
     static async deleteCart(id){
