@@ -40,9 +40,9 @@ export class ProductsService {
             logger.info('SERVICE UpdateProduct',error.message);
         } 
     }
-    static async delateProduct(idCart,idProduct){
+    static async delateProduct(idProduct){
         try {
-            const deleted = await Factory.delateProduct(idCart,idProduct)
+            const deleted = await Factory.delateProduct(idProduct)
             return deleted
         } catch (error) {
             logger.info('SERVICE DeleteProduct',error.message);

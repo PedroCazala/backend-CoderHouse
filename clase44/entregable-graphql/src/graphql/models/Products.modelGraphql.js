@@ -64,6 +64,7 @@ import {
         price: { type: GraphQLFloat },
         stock: { type: GraphQLInt },
         codigo: { type: GraphQLString },
+        date: { type: GraphQLString },
     }),
   });
   
