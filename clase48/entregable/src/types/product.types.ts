@@ -1,9 +1,10 @@
 export interface Product {
-    uuid: string,
+    id: number,
     name: string,
     description: string,
     price: number,
     stock: number,
-    image: string,
-    date: string
+    img: string,
+    date: number,
+    código: string,
 }
