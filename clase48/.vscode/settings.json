@@ -4,5 +4,8 @@
     "deno.unstable": false,
     "deno.suggest.imports.hosts": {
         "https://deno.land": true,
-    }
+    },
+    "cSpell.words": [
+        "Lapicera"
+    ]
 }

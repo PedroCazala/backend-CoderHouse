@@ -5,6 +5,6 @@ export interface Product {
     price: number,
     stock: number,
     img: string,
-    date: number,
+    date: string,
     código: string,
 }

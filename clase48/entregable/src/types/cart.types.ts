@@ -1,6 +1,6 @@
 import { Product } from "./product.types.ts"
 export interface Cart {
-    uuid: string,
+    id: number,
     products: Product[],
     date: string
 }   

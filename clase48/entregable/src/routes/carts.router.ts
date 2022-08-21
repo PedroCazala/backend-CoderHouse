@@ -1,6 +1,8 @@
-import { Context, Router } from "../../deps.ts"
+import { Router } from "../../deps.ts"
+import { CartsHandlers } from "../handlers/carts.handlers.ts"
 
 export const cartsRouter = new Router()
-    .get("/api/carritos",(ctx:Context)=>{
-        ctx.response.body ={hola:'mundo de carritos'}
-    })
+    .post("/api/carrito",CartsHandlers.createCart)
+    .delete("/api/carrito/:id",CartsHandlers.deleteCart)
+    .get("/api/carrito/:id",CartsHandlers.getACart)
+    .get("/api/carrito/:id/productos",CartsHandlers.getProductsOfACart)

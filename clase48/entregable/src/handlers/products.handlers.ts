@@ -4,7 +4,7 @@ import { newId } from "../newId.ts";
 import { Product } from "../types/product.types.ts";
 const Products: Product[] = [
     {
-        date: 1659125104010,
+        date: "21/8/2022, 10:13:27",
         name: "Cuadernillo",
         description: "Puedes escribir en mí",
         código: "123456789",
@@ -15,7 +15,7 @@ const Products: Product[] = [
     },
     {
         id: 0,
-        date: 1659125091278,
+        date: "21/8/2022, 10:13:27",
         name: "Goma",
         description: "Es para escribir",
         código: "123456789",
@@ -25,7 +25,7 @@ const Products: Product[] = [
     },
     {
         id: 2,
-        date: 1659125096749,
+        date: "21/8/2022, 10:13:27",
         name: "Lapicera",
         description: "Es para escribir",
         código: "123456789",
@@ -53,27 +53,30 @@ export class ProductsHandlers {
 
     static async pushProduct(ctx: Context) {
         const idProd: number = newId(Products);
-        const newProduct: Product = await ctx.request.body().value;
-        const product = { id: idProd, ...newProduct };
+        const newProduct = await ctx.request.body().value;
+        const date = new Date().toLocaleString();
+        const product: Product = { id: idProd, ...newProduct, date };
         console.log("product", product);
 
         Products.push(product);
-        return product;
+        ctx.response.body = {
+            message: "Producto agregado",
+            productoAgregado: product,
+        }
     }
     static async updateProduct(ctx: Context) {
         const { productId } = helpers.getQuery(ctx, { mergeParams: true });
-        const newProduct: Product = await ctx.request.body().value;
         const oldProduct: Product = Products.find(
-            (prod: Product) => prod.id == parseInt(productId)
-        );
-        console.log("oldProduct", oldProduct);
-
+                (prod: Product) => prod.id == parseInt(productId)
+            );
+            console.log("oldProduct", oldProduct);
+            
+        const newProduct: Product = {...await ctx.request.body().value, date: oldProduct.date};
         const index = Products.indexOf(oldProduct);
-        console.log(index);
 
         Products[index] = { ...newProduct, id: parseInt(productId) };
         ctx.response.body = {
-            mesage: "Producto actualizado",
+            message: "Producto actualizado",
             antes: oldProduct,
             después: Products[index],
         };
@@ -86,7 +89,7 @@ export class ProductsHandlers {
         const index = Products.indexOf(product);
         await Products.splice(index, 1);
         ctx.response.body = {
-            mesage: "Producto eliminado",
+            message: "Producto eliminado",
             elProductoEliminadoFue: product,
         };
     }
